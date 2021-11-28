@@ -1,0 +1,19 @@
+@mixin border($color: black, $radius: none, $width: 1px, $type: solid) {
+  border: $width $type $color;
+  border-radius: $radius;
+}
+
+@mixin flex($align: center, $justify: center) {
+  align-items: $align;
+  display: flex;
+  justify-content: $justify;
+}
+
+@mixin size($height: auto, $width: 100%) {
+  height: $height;
+  width: $width;
+}
+
+@mixin transition($time: 0.2s, $effect: ease-in-out) {
+  transition: $time $effect;
+}

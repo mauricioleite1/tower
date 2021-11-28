@@ -1,0 +1,155 @@
+@use '../base/mixins' as *;
+
+.container {
+  @include flex;
+  @include size(100vh, 100%);
+  backdrop-filter: blur(6px);
+  background: rgba(0, 7, 4, 0.801);
+  position: absolute;
+  overflow: hidden;
+  z-index: 99;
+}
+
+.left {
+  @include size(660px, 375px);
+  background-size: cover;
+  padding: 160px 30px;
+
+  h1 {
+    color: white;
+    font-size: 38px;
+    font-weight: 900;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    width: 160px;
+  }
+  h3 {
+    color: white;
+    font-family: Inter, Sofia Pro, Poppins, sans-serif;
+    font-size: 14px;
+    font-weight: 100;
+    line-height: 1.45rem;
+    width: 65%;
+  }
+}
+
+.right {
+  @include flex;
+  @include size(660px, 400px);
+  background: rgb(234, 234, 234);
+  color: rgb(49, 49, 49);
+  flex-direction: column;
+  gap: 20px;
+
+  input:not([ type="checkbox"]) {
+    @include size(40px, 80%);
+    appearance: none;
+    background: white;
+    border: 1px solid rgb(216, 216, 216);
+    font-family: Poppins, Sofia Pro, Inter, sans-serif;
+    letter-spacing: 0.05em;
+    outline: none;
+    padding-left: 10px;
+
+    &::placeholder {
+      color: rgb(216, 216, 216);
+      font-size: 12px;
+      font-weight: 300;
+    }
+  }
+  input[ type="password" ], input[ type="text" ] {
+    background: transparent;
+    border: none;
+    outline: none;
+    width: 93%;
+  }
+}
+
+.password {
+  @include flex(center, flex-start);
+  background: white;
+  border: 1px solid rgb(216, 216, 216);
+    // border-radius: 50vh;
+
+  @include size(40px, 80%);
+  ion-icon {
+    cursor: pointer;
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+}
+
+.link {
+  cursor: pointer;
+}
+
+.keep-logged-div {
+  @include size(auto, 80%);
+  @include flex(center, flex-start);
+  gap: 6px;
+
+  h4 {
+    color: black;
+    font-weight: 300;
+    font-size: 12px;
+  }
+}
+
+.login__title {
+  @include flex(flex-end, space-between);
+  @include size(auto, 80%);
+  color: black;
+  position: relative;
+  ion-icon { 
+    // @include transition;
+    cursor: pointer;
+    font-size: 24px;
+    position: absolute;
+    right: -38px;
+    top: -110px;
+    &:active {
+      color: green;
+    }
+    &:hover {
+      opacity: 0.6;
+    }
+  }
+}
+
+.login__options {
+  @include flex(flex-start, center);
+  @include size(100px, 80%);
+  flex-flow: row wrap;
+  margin-top: 20px;
+  h2 {
+    color: black;
+    font-weight: 300;
+    width: 100%
+  }
+  button {
+    padding: 10px;
+    gap: 10px;
+  }
+  svg {
+    height: 1rem;
+    color: white;
+  }
+}
+
+.continuewith-buttons {
+  // background: red;
+  @include flex(center, space-between);
+  @include size;
+  
+  a {
+    @include flex;
+    @include size(auto, 47%);
+    background: rgb(255, 255, 255);
+    // padding-inline: 30px;
+    padding-block: 10px;
+    gap: 10px;
+  }
+
+  // padding: 100px;
+}

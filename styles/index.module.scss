@@ -1,0 +1,47 @@
+@use 'base/mixins' as m;
+
+.container {
+  @include m.size;
+}
+
+.hero {
+  @include m.flex;
+  @include m.size(75vh, 100%);
+
+  background-image: linear-gradient(to bottom, rgba(245, 246, 252, 0), rgba(0, 0, 0, 0.2)), url('http://downloads.bungie.net/images/Wallpapers/S15/JB_Marathon_Hunter_TWAB_4K.jpg');
+  background-size: cover;
+  isolation: isolate;
+  position: relative;
+  z-index: -1;
+
+  &:before {
+    content: '';
+    inset: 0;
+    position: absolute;
+    z-index: -1;
+  }
+}
+
+.hero-text {
+  position: absolute;
+  top: 550px;
+  left: 200px;
+  color: rgb(255, 255, 255);
+  h1 {
+    // padding: 30px;
+    color: rgb(255, 255, 255);
+    font-size: 36px;
+    font-family: Sofia Pro;
+  }
+  p {
+    color: rgb(26, 26, 26);
+    font-family: Sofia Pro;
+    color: inherit;
+    line-height: 22px;
+    letter-spacing: 0.05em;
+    font-size: 14px;
+    font-weight: 200;
+    width: 500px;
+    z-index: 1;
+  }
+}

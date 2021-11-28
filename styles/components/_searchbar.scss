@@ -1,0 +1,70 @@
+@use '../base/mixins' as m;
+@use '../base/colors' as c;
+
+.hero-searchbar {
+  @include m.flex(center, space-between);
+  @include m.size(100px, 650px);
+  background: rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(26px);
+  border-radius: 50vh;
+  border-top: 1px solid rgb(200, 200, 200);
+  border-left: 1px solid rgb(200, 200, 200);
+
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 13px, rgba(0, 0, 0, 0.24) 0px 1px 12px;
+  flex-flow: row wrap;
+  margin: auto;
+  margin-top: -60px;
+  padding-inline: 10px;
+  z-index: 1;
+
+  ion-icon { 
+    background: linear-gradient(210deg, c.$ac-main, c.$ac-secondary);
+    background-color: white;
+    border-radius: 50%;
+    color: white;
+    cursor: pointer;
+    font-size: 20px;
+    padding: 22px;
+  }
+
+  input {
+    @include m.size(50%);
+    @include m.transition(0.6s);
+    background: transparent;
+    border: none;
+    color: rgb(147, 255, 104);
+    outline: none;
+    font-size: 14px;
+    text-align: center;
+    letter-spacing: 0.1em;
+    padding-left: 20px;
+    border-bottom: 1px solid whitesmoke;
+    &::placeholder {
+      color: whitesmoke;
+    }
+  }
+  nav {
+    @include m.flex(center, space-evenly);
+    @include m.size(60%);
+    h4 {
+      // background-color: gold;
+      @include m.flex;
+      @include m.size(60%);
+      color: c.$text-main;
+      font-weight: 600;
+      letter-spacing: 0.05rem;
+      // border-right: 1px solid rgb(177, 177, 177);
+      // padding-inline: 64px;
+      &:last-child {
+        border-right: none;
+      }
+    }
+
+  }
+}
+
+.hero-searchbar__inputnav {
+  @include m.size(80%, 86%);
+
+  padding-left: 20px;
+}

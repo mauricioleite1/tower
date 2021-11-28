@@ -1,0 +1,20 @@
+@use 'base/colors' as c;
+@use 'base/mixins' as *;
+
+button {
+  background-color: transparent;
+  border: none;
+}
+
+.btn-login {
+  @include size(40px, 80%);
+  @include transition;
+  // background: rgb(112, 105, 218);
+  background: linear-gradient(45deg, c.$ac-main, rgb(147, 255, 104) 100%);
+  color: white;
+  font-weight: bold;
+
+  &:hover { 
+    opacity: 0.8;
+  }
+}
