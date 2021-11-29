@@ -59,3 +59,17 @@ export const languageLogin = {
   },
 }
 
+export const languageSearch = {
+  en: {
+    cantfind: `Can't find what you're looking for, Guardian`,
+    canyoutry: `Can you try again?`
+  },
+  de: {
+    cantfind: `Kann nicht finden wonach du suchst, Wächter`,
+    canyoutry: `Kannst du es nochmal versuchen?`
+  },
+  ptBR: {
+    cantfind: `Não consegui encontrar o que procurava, Guardião`,
+    canyoutry: `Poderia tentar novamente?`
+  }
+}

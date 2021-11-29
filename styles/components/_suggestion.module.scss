@@ -2,15 +2,15 @@
 @use '../base/colors' as c;
 
 .container {
-  @include size(60px, 49.5%);
+  @include size(80px, 49.3%);
   @include transition;
   background-size: cover;
+  border-radius: 8px;
   cursor: pointer;
-  display: flex;
   color: white;
   flex-direction: column;
   padding: 10px;
-  padding-left: 52px;
+  padding-left: 70px;
   gap: 6px;
   opacity: 0.9;
 
