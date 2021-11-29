@@ -6,19 +6,20 @@ import TimeAgo from 'timeago-react';
 import styles from '../../styles/components/_suggestion.module.scss';
 
 const Suggestion = ({ result }) => {
-  const { destinyMemberships } = result;
   const [lastPlayed, setLastPlayed] = useState({
     character: null,
     date: null,
   });
+  const { destinyMemberships } = result;
   const stringCode = String(result.bungieGlobalDisplayNameCode);
 
   useEffect(() => {
-    const membershipId = destinyMemberships[0].membershipId;
-    const membershipType = destinyMemberships[0].membershipType;
+    if (destinyMemberships[0]) {
+      const membershipId = destinyMemberships[0].membershipId;
+      const membershipType = destinyMemberships[0].membershipType;
+    }
 
     getProfile(membershipId, membershipType).then(({ Response }) => {
-      console.log(Response);
       setLastPlayed({
         date: Response && Response.profile.data.dateLastPlayed,
         character:
@@ -27,7 +28,7 @@ const Suggestion = ({ result }) => {
             (character) => character.dateLastPlayed === lastPlayed.date
           ),
       });
-    });
+    })
   }, [destinyMemberships, lastPlayed.date]);
 
   return (
@@ -39,7 +40,7 @@ const Suggestion = ({ result }) => {
           `url(https://www.bungie.net${lastPlayed.character.emblemBackgroundPath})`,
       }}
     >
-      <div>
+      <div className={styles.title}>
         <h3>{result.bungieGlobalDisplayName}</h3>
         {stringCode.length === 3 ? (
           <Tag title="#" shownInfo={stringCode.padStart(4, '0')} />
@@ -47,18 +48,12 @@ const Suggestion = ({ result }) => {
           <Tag title="#" shownInfo={stringCode} />
         )}
       </div>
-      <h6>Last seen {<TimeAgo datetime={lastPlayed.date} locale="en" />}</h6>
+      <h6>Last seen<span>{<TimeAgo datetime={lastPlayed.date} locale="en" />}</span></h6>
     </div>
   );
 };
 
 export default Suggestion;
-
-// import React, { useContext, useEffect, useState } from 'react';
-// import { getProfile, searchDestinyPlayer } from '../../api/data';
-// import { PlayerContext } from '../../context';
-// // import { SuggestionsLang } from '../../context/language';
-// // import TimeAgo from 'timeago-react';
 
 // const Suggestion = ({
 //   displayName,

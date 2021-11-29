@@ -12,6 +12,8 @@ import { UserPreferences } from '../../context/user';
 import { PlayerContext } from '../../context/player';
 import styles from '../../styles/components/_searchbar.module.scss';
 import DetailedSearchBar from './DetailedSearchBar';
+import LoadingDetailedSearchBar from './loadingState/LoadingDetailedSearchBar';
+
 
 // import { PlayerContext, SearchContext } from '../../context';
 // import SuggestionsList from './SuggestionList';
@@ -22,7 +24,7 @@ const SearchBar = ({ showSuggestions, setShowSuggestions }) => {
   const searchInput = useRef(null);
   const { language } = useContext(UserPreferences);
   const [bungieManifest, setBungieManifest] = useState(null);
-  // const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
   // const { searchSuggestions, setSearchSuggestions } = useContext(SearchContext);
   const { player, setPlayer } = useContext(PlayerContext);
   const [result, setResult] = useState(null);
@@ -42,7 +44,7 @@ const SearchBar = ({ showSuggestions, setShowSuggestions }) => {
       const delayDebounceFn = setTimeout(() => {
         searchByGlobalNamePrefix(searchTerm).then(({ Response }) => {
           setShowDetailedSearchBar(true);
-          setResult(Response)
+          setResult(Response);
         });
       }, 700);
 
@@ -90,7 +92,12 @@ const SearchBar = ({ showSuggestions, setShowSuggestions }) => {
   return (
     <>
       <div className={styles.container}>
-        {showDetailedSearchBar && <DetailedSearchBar searchTerm={ searchTerm } result={ result } />}
+        { showDetailedSearchBar && (
+          <DetailedSearchBar
+            searchTerm={searchTerm}
+            result={result}
+          />
+        ) }
         {/* <Link to="/crucible"> */}
         <div className="hero-searchbar__inputnav">
           <input

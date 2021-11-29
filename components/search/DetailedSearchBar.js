@@ -21,10 +21,10 @@ const DetailedSearchBar = ({ searchTerm, result }) => {
       <div className={styles.search}>
         { result && result.searchResults.length >= 1 ? (
         <div className={styles.searchList}>
-          {result &&
+          { searchTerm && result &&
             result.searchResults.map((result, key) => (
               <Suggestion key={key} result={result} />
-            ))}
+            )) }
         </div> )
         : (
           <div className={styles.notFoundImage}>
@@ -41,7 +41,7 @@ const DetailedSearchBar = ({ searchTerm, result }) => {
         ) }
         </div>
 
-      {/* <div className={styles.categories}>
+       {/* <div className={styles.categories}>
         <h6>Categories</h6>
         <div>Weapons</div>
         <div>Activities</div>

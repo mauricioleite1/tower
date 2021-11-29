@@ -2,7 +2,8 @@
 @use '../base/colors' as c;
 
 .container {
-  @include size(80px, 49.3%);
+  @include flex;
+  @include size(75px, 49%);
   @include transition;
   background-size: cover;
   border-radius: 8px;
@@ -10,21 +11,29 @@
   color: white;
   flex-direction: column;
   padding: 10px;
-  padding-left: 70px;
-  gap: 6px;
+  padding-left: 56px;
+  gap: 10px;
   opacity: 0.9;
 
-  div {
-    @include flex(center, space-between);
+  h6 {
+    // background-color: rgb(156, 156, 156);
+    @include flex(center, flex-start);
+    @include size;
+    gap: 4px;    
   }
-  
+
   h3 {
     font-family: Inter;
     font-weight: 400;
     font-size: 14px;
-    letter-spacing: 0.1em;   
+    letter-spacing: 0.05em;
+    padding-left: 8.5px;
   }
 
+  .title {
+    @include flex(center, space-between);
+    @include size;
+  }
 
   &:hover {
     opacity: 1;
