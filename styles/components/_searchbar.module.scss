@@ -3,23 +3,22 @@
 
 .container {
   @include m.flex(center, space-between);
-  @include m.size(100px, 650px);
-  background: rgba(255, 255, 255, 0.45);
+  @include m.size(100px, 600px);
   backdrop-filter: blur(26px);
+  background: rgba(255, 255, 255, 0.45);
+  border-left: 1px solid rgb(200, 200, 200);
   border-radius: 50vh;
   border-top: 1px solid rgb(200, 200, 200);
-  border-left: 1px solid rgb(200, 200, 200);
-
   box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 13px, rgba(0, 0, 0, 0.24) 0px 1px 12px;
   flex-flow: row wrap;
   margin: auto;
   margin-top: -60px;
   padding-inline: 10px;
+  position: relative;
   z-index: 1;
 
   ion-icon { 
     background: linear-gradient(210deg, c.$ac-main, c.$ac-secondary);
-    background-color: white;
     border-radius: 50%;
     color: white;
     cursor: pointer;
@@ -32,16 +31,17 @@
     @include m.transition(0.6s);
     background: transparent;
     border: none;
-    color: c.$text-main;
-    outline: none;
-    font-size: 16px;
-    font-family: Sofia Pro, Poppins, Inter, sans-serif;
-    text-align: center;
-    letter-spacing: 0.1em;
-    padding-left: 20px;
     border-bottom: 1px solid whitesmoke;
+    color: c.$text-main;
+    font-family: Sofia Pro, Poppins, Inter, sans-serif;
+    font-size: 16px;
+    letter-spacing: 0.1em;
+    outline: none;
+    padding-left: 20px;
+    text-align: center;
+
     &::placeholder {
-      color: whitesmoke;
+      opacity: 0.7;
     }
   }
   nav {
@@ -52,8 +52,8 @@
       @include m.size(60%);
       color: rgb(95, 95, 95);
       cursor: pointer;
-      font-weight: 400;
       font-size: 11px;
+      font-weight: 400;
       letter-spacing: 0.05rem;
 
       &:last-child {
