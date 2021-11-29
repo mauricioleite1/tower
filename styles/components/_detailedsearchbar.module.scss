@@ -50,3 +50,8 @@
   }
 }
 
+.notFoundImage {
+  @include flex;
+  @include size;
+  flex-direction: column;
+}
