@@ -36,8 +36,10 @@ const Login = ({ setShowLogin }) => {
         setShowLogin(false);
 
         dispatch(login({
+          isLoggedIn: true,
           displayName: user.displayName,
           email: user.email,
+          photoURL: user.photoURL,
         }));
 
         console.log(user);

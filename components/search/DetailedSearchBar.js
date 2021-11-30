@@ -13,13 +13,14 @@ const DetailedSearchBar = ({ searchTerm, result }) => {
 
   return (
     <section className={styles.container}>
-      {!searchTerm ? (
+      {/* {!searchTerm ? (
         <h6>Recent Search</h6>
       ) : result && result.searchResults.length >= 1 && (
         <h6>
           All results for <span>{searchTerm}</span>
         </h6>
-      ) }
+      ) } */}
+      
       <div className={styles.search}>
         { result && result.searchResults.length >= 1 ? (
         <div className={styles.searchList}>

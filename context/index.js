@@ -1,11 +1,14 @@
 import { UserPreferencesStorage } from './user';
 import { PlayerStorage } from './player';
+import { BungieDataStorage } from './bungieData';
 
 const GlobalContext = ({ children }) => {
   return (
     <UserPreferencesStorage>
       <PlayerStorage>
-        {children}
+        <BungieDataStorage>
+          {children}
+        </BungieDataStorage>
       </PlayerStorage>
     </UserPreferencesStorage>
   );

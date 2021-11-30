@@ -2,12 +2,12 @@ export const commonText = {
   search: {
     de: 'Suche',
     en: 'Search',
-    ptBR: 'Buscar',
+    'pt-br': 'Buscar',
   },
   login: {
     de: 'Einloggen',
     en: 'Login',
-    ptBR: 'Entrar',
+    'pt-br': 'Entrar',
   },
 }
 
@@ -24,7 +24,7 @@ export const searchBarNavOptions = {
     { href: '/trials', title: 'Trials of Osiris' },
     { href: '/gambit', title: 'Gambit' },
   ],
-  ptBR: [
+  'pt-br': [
     { href: '/vanguard', title: 'Vanguarda' },
     { href: '/crucible', title: 'Crisol' },
     { href: '/trials', title: 'Desafios de Osíris' },
@@ -49,7 +49,7 @@ export const languageLogin = {
     bannerTitle: 'Join our destiny community',
     bannerParagraph: 'Explore Destiny universe and interact with everything about your guardian, find the best weapon roll for you and manage your loadouts at real time. Check your opponents stats before matches.',
   },
-  ptBR: {
+  'pt-br': {
     signin: 'Entre',
     notamember: 'Ainda não é membro?',
     register: 'Registre-se',
@@ -68,7 +68,7 @@ export const languageSearch = {
     cantfind: `Kann nicht finden wonach du suchst, Wächter`,
     canyoutry: `Kannst du es nochmal versuchen?`
   },
-  ptBR: {
+  'pt-br': {
     cantfind: `Não consegui encontrar o que procurava, Guardião`,
     canyoutry: `Poderia tentar novamente?`
   }

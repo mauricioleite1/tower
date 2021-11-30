@@ -69,6 +69,11 @@
   @include flex(center, space-between);
   gap: 20px;
 
+  .profileImg {
+    height: 30px !important;
+    border-radius: 50%;
+  }
+
   button {
     background: none;
     padding: 0;

@@ -1,33 +1,34 @@
 import { API_BASE_URL, header } from './key';
 
-export const apiFetch = async (API_ENDPOINT) => {
+export const bungieApiFetch = async (API_ENDPOINT) => {
   const response = await fetch(API_ENDPOINT, header);
-  const data = response.json();
-  return data;
+  // console.log(response);
+  if (response.ok) {
+    const data = response.json();
+    return data;
+  } else {
+    throw new Error('Something went wrong')
+  }
 }
 
 export const getManifest = async () => {
   const API_ENDPOINT = `${API_BASE_URL}/Destiny2/Manifest/`;
-  return apiFetch(API_ENDPOINT);
-}
-
-export const getManifestList = async (API_ENDPOINT) => {
-  return apiFetch(API_ENDPOINT);
+  return bungieApiFetch(API_ENDPOINT);
 }
 
 export const searchByGlobalNamePrefix = async (displayNamePrefix, page = 0) => {
   const API_ENDPOINT = `${API_BASE_URL}/User/Search/Prefix/${displayNamePrefix}/${page}`;
-  return apiFetch(API_ENDPOINT);
+  return bungieApiFetch(API_ENDPOINT);
 }
 
-export const searchDestinyPlayer = async (displayName, membershipType = -1) => {
-  const API_ENDPOINT = `${API_BASE_URL}/Destiny2/SearchDestinyPlayer/${membershipType}/${displayName}/`;
-  return apiFetch(API_ENDPOINT);
-}
+// export const searchDestinyPlayer = async (displayName, membershipType = -1) => {
+//   const API_ENDPOINT = `${API_BASE_URL}/Destiny2/SearchDestinyPlayer/${membershipType}/${displayName}/`;
+//   return apiFetch(API_ENDPOINT);
+// }
 
 export const getProfile = async (membershipId, membershipType = -1) => {
-  const API_ENDPOINT = `${API_BASE_URL}/Destiny2/${membershipType}/Profile/${membershipId}/?components=100,104,200,202,205`;
-  return apiFetch(API_ENDPOINT);
+  const API_ENDPOINT = `${API_BASE_URL}/Destiny2/${membershipType}/Profile/${membershipId}/?components=100,104,200,202,205,1100`;
+  return bungieApiFetch(API_ENDPOINT);
 }
 
 // export const getActivityHistory = async (characterId, membershipId, membershipType = 1) => {

@@ -1,11 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit';
 import userReducer from '../userSlice';
-import bungieDataReducer from '../bungieDataSlice';
 
 export const store = configureStore({
   reducer: {
     user: userReducer,
-    bungieData: bungieDataReducer,
   },
 });
 

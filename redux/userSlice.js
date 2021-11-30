@@ -2,9 +2,10 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   info: {
+    isLoggedIn: false,
     displayName: '',
     email: '',
-    // photoURL: '',
+    photoURL: '',
   },
   preferences: {
     language: 'en',

@@ -21,10 +21,9 @@ const Header = ({
   // setShowSuggestions,
 }) => {
   const dispatch = useAppDispatch();
-  const emailInfo = useAppSelector((state) => state.user.info);
+  const loginInfo = useAppSelector((state) => state.user.info);
   const language = useAppSelector((state) => state.user.preferences.language);
 
-  const [bungieManifest, setBungieManifest] = useState(null);
   // const { language, setLanguage } = useContext(UserPreferences);
   // const [language, setLanguage] = useState('en');
   // const location = useLocation();
@@ -77,7 +76,7 @@ const Header = ({
               </li>
               <li
                 onClick={() => {
-                  dispatch(selectedLanguage('ptBR'));
+                  dispatch(selectedLanguage('pt-br'));
                   setShowLanguageOptions(false);
                 }}
               >
@@ -91,16 +90,16 @@ const Header = ({
               </li>
             </ul>
           )}
-
-          <ion-icon
-            name="globe-outline"
-            onClick={() => setShowLanguageOptions(!showLanguageOptions)}
-          />
+          <div onClick={() => setShowLanguageOptions(!showLanguageOptions)}>
+            <ion-icon name="globe-outline" />
+          </div>
         </div>
 
         <button onClick={() => setShowLogin(true)}>
-          { !emailInfo.displayName ? commonText.login[language] : emailInfo.displayName }
+          { !loginInfo.displayName ? commonText.login[language] : loginInfo.displayName }
         </button>
+
+        { loginInfo.photoURL && <Image className={styles.profileImg} src={ loginInfo.photoURL } alt="User photo" height="24px" width="24px" /> }
       </div>
 
     </header>

@@ -6,6 +6,7 @@ import TimeAgo from 'timeago-react';
 import styles from '../../styles/components/_suggestion.module.scss';
 
 const Suggestion = ({ result }) => {
+  const [showErrorMessage, setShowErrorMessage] = useState(false);
   const [lastPlayed, setLastPlayed] = useState({
     character: null,
     date: null,
@@ -13,24 +14,28 @@ const Suggestion = ({ result }) => {
   const { destinyMemberships } = result;
   const stringCode = String(result.bungieGlobalDisplayNameCode);
 
-  // useEffect(() => {
-  //   if (destinyMemberships[0]) {
-  //     const membershipId = destinyMemberships[0].membershipId;
-  //     const membershipType = destinyMemberships[0].membershipType;
-  //   }
+  useEffect(() => {
+    if (destinyMemberships[0]) {
+      const membershipId = destinyMemberships[0].membershipId;
+      const membershipType = destinyMemberships[0].membershipType;
+    }
 
-  //   getProfile(membershipId, membershipType).then(({ Response }) => {
-  //     console.log(Response);
-  //     setLastPlayed({
-  //       date: Response && Response.profile.data.dateLastPlayed,
-  //       character:
-  //         Response &&
-  //         Object.values(Response.characters.data).find(
-  //           (character) => character.dateLastPlayed === lastPlayed.date
-  //         ),
-  //     });
-  //   })
-  // }, [destinyMemberships, lastPlayed.date]);
+    getProfile(membershipId, membershipType)
+      .then(({ Response }) => {
+        // console.log(Response);
+      setLastPlayed({
+        date: Response && Response.profile.data.dateLastPlayed,
+        character:
+          Response &&
+          Object.values(Response.characters.data).find(
+            (character) => character.dateLastPlayed === lastPlayed.date
+          ),
+      });
+    }).catch((error) => {
+      setShowErrorMessage(true);
+      console.log(error)
+    });
+  }, [destinyMemberships, lastPlayed.date]);
 
     const handleClick = async () => {
       console.log(result);
@@ -51,7 +56,7 @@ const Suggestion = ({ result }) => {
     //       const responseStatDefinition = await fetch(`https://www.bungie.net${bungieManifest.Response.jsonWorldComponentContentPaths.en.DestinyStatDefinition}`);
     //       const responseProgDefinition = await fetch(`https://www.bungie.net${bungieManifest.Response.jsonWorldComponentContentPaths.en.DestinyProgressionDefinition}`);
 
-    //       setPlayerData({
+    //       setPlayer({
     //         ...Response,
     //         classes: await response.json(),
     //         presentation: await response1.json(),
@@ -69,25 +74,31 @@ const Suggestion = ({ result }) => {
   };
 
   return (
+    <>
+    { !showErrorMessage ? (
     <div
     onClick={ handleClick }
-      className={styles.container}
-      style={{
-        backgroundImage:
-          lastPlayed.character &&
-          `url(https://www.bungie.net${lastPlayed.character.emblemBackgroundPath})`,
-      }}
-    >
-      <div className={styles.title}>
-        <h3>{result.bungieGlobalDisplayName}</h3>
-        {stringCode.length === 3 ? (
-          <Tag title="#" shownInfo={stringCode.padStart(4, '0')} />
-        ) : (
-          <Tag title="#" shownInfo={stringCode} />
-        )}
+    className={styles.container}
+    style={{
+      backgroundImage:
+            lastPlayed.character &&
+            `url(https://www.bungie.net${lastPlayed.character.emblemBackgroundPath})`,
+        }}
+      >
+        <div className={styles.title}>
+          <h3>{result.bungieGlobalDisplayName}</h3>
+          {stringCode.length === 3 ? (
+            <Tag title="#" shownInfo={stringCode.padStart(4, '0')} />
+          ) : (
+            <Tag title="#" shownInfo={stringCode} />
+          )}
+        </div>
+        <h6>Last seen<span>{<TimeAgo datetime={lastPlayed.date} locale="en" />}</span></h6>
       </div>
-      <h6>Last seen<span>{<TimeAgo datetime={lastPlayed.date} locale="en" />}</span></h6>
-    </div>
+    )
+    : <div>Could not retrieve data from Bungie</div> 
+    }
+  </>
   );
 };
 

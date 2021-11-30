@@ -32,18 +32,19 @@ const SearchBar = ({ showSuggestions, setShowSuggestions }) => {
 
   useEffect(() => searchInput.current.focus(), []);
 
-  // useEffect(() => {
-  //   if (searchTerm) {
-  //     const delayDebounceFn = setTimeout(() => {
-  //       searchByGlobalNamePrefix(searchTerm).then(({ Response }) => {
-  //         setShowDetailedSearchBar(true);
-  //         setResult(Response);
-  //       });
-  //     }, 700);
+  useEffect(() => {
+    if (searchTerm) {
+      const delayedSearch = setTimeout(() => {
+        searchByGlobalNamePrefix(searchTerm).then(({ Response }) => {
+          setResult(Response);
+          console.log(Response);
+          setShowDetailedSearchBar(true);
+        });
+      }, 500);
 
-  //     return () => clearTimeout(delayDebounceFn);
-  //   }
-  // }, [searchTerm]);
+      return () => clearTimeout(delayedSearch);
+    }
+  }, [searchTerm]);
 
   // const searchOnKey = async ({ key }) => {
   //   if (key === 'Enter') {
