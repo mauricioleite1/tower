@@ -1,13 +1,15 @@
 import { useContext } from 'react';
 import { languageSearch } from '../language';
 import { UserPreferences } from '../../context/user';
+import { useAppDispatch, useAppSelector } from '../../redux/app/hooks.ts';
 import Image from 'next/image';
 import Suggestion from './Suggestion';
 import styles from '../../styles/components/_detailedsearchbar.module.scss';
 
 
 const DetailedSearchBar = ({ searchTerm, result }) => {
-  const { language } = useContext(UserPreferences);
+  const dispatch = useAppDispatch();
+  const language = useAppSelector((state) => state.user.preferences.language);
 
   return (
     <section className={styles.container}>

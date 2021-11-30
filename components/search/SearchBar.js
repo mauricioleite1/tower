@@ -8,6 +8,7 @@ import {
 } from '../../api';
 
 import { searchBarNavOptions, commonText } from '../language';
+import { useAppDispatch, useAppSelector } from '../../redux/app/hooks.ts';
 import { UserPreferences } from '../../context/user';
 import { PlayerContext } from '../../context/player';
 import styles from '../../styles/components/_searchbar.module.scss';
@@ -19,10 +20,10 @@ import LoadingDetailedSearchBar from './loadingState/LoadingDetailedSearchBar';
 // import SuggestionsList from './SuggestionList';
 
 const SearchBar = ({ showSuggestions, setShowSuggestions }) => {
+  const language = useAppSelector((state) => state.user.preferences.language);
   const [showDetailedSearchBar, setShowDetailedSearchBar] = useState(false);
   const [searchTerm, setSearchTerm] = useState(null);
   const searchInput = useRef(null);
-  const { language } = useContext(UserPreferences);
   const [bungieManifest, setBungieManifest] = useState(null);
   const [loading, setLoading] = useState(false);
   // const { searchSuggestions, setSearchSuggestions } = useContext(SearchContext);
@@ -31,26 +32,18 @@ const SearchBar = ({ showSuggestions, setShowSuggestions }) => {
 
   useEffect(() => searchInput.current.focus(), []);
 
-  useEffect(
-    () =>
-      getManifest().then(async ({ Response }) =>
-        setBungieManifest(Response.jsonWorldComponentContentPaths)
-      ),
-    []
-  );
+  // useEffect(() => {
+  //   if (searchTerm) {
+  //     const delayDebounceFn = setTimeout(() => {
+  //       searchByGlobalNamePrefix(searchTerm).then(({ Response }) => {
+  //         setShowDetailedSearchBar(true);
+  //         setResult(Response);
+  //       });
+  //     }, 700);
 
-  useEffect(() => {
-    if (searchTerm) {
-      const delayDebounceFn = setTimeout(() => {
-        searchByGlobalNamePrefix(searchTerm).then(({ Response }) => {
-          setShowDetailedSearchBar(true);
-          setResult(Response);
-        });
-      }, 700);
-
-      return () => clearTimeout(delayDebounceFn);
-    }
-  }, [searchTerm]);
+  //     return () => clearTimeout(delayDebounceFn);
+  //   }
+  // }, [searchTerm]);
 
   // const searchOnKey = async ({ key }) => {
   //   if (key === 'Enter') {

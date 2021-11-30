@@ -5,11 +5,17 @@ import { UserPreferences } from '../../context/user';
 import styles from '../../styles/components/_login.module.scss';
 import { auth, provider } from '../../lib/firebase';
 import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+import { useAppDispatch, useAppSelector } from '../../redux/app/hooks.ts';
+import { login } from '../../redux/userSlice';
+
 
 // import lg from 'public/images/bg/lg.jpg';
 
 const Login = ({ setShowLogin }) => {
-  const { language } = useContext(UserPreferences);
+  const dispatch = useAppDispatch();
+  const language = useAppSelector((state) => state.user.preferences.language);
+  // const count = useAppSelector((state) => state.user.email);
+
   const [user, setUser] = useState({
     email: null,
     password: null,
@@ -28,6 +34,11 @@ const Login = ({ setShowLogin }) => {
         const { user } = result;
 
         setShowLogin(false);
+
+        dispatch(login({
+          displayName: user.displayName,
+          email: user.email,
+        }));
 
         console.log(user);
       })

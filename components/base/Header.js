@@ -7,6 +7,9 @@ import { commonText } from '../language';
 // import { Avatar } from '@material-ui/core';
 import SearchBar from '../search/SearchBar';
 import styles from '../../styles/components/_header.module.scss';
+import { useAppSelector, useAppDispatch } from '../../redux/app/hooks.ts';
+import { selectedLanguage } from '../../redux/userSlice';
+
 
 const Header = ({
   setShowLogin,
@@ -17,8 +20,12 @@ const Header = ({
   // showSuggestions,
   // setShowSuggestions,
 }) => {
+  const dispatch = useAppDispatch();
+  const emailInfo = useAppSelector((state) => state.user.info);
+  const language = useAppSelector((state) => state.user.preferences.language);
+
   const [bungieManifest, setBungieManifest] = useState(null);
-  const { language, setLanguage } = useContext(UserPreferences);
+  // const { language, setLanguage } = useContext(UserPreferences);
   // const [language, setLanguage] = useState('en');
   // const location = useLocation();
 
@@ -42,7 +49,7 @@ const Header = ({
             <ul>
               <li
                 onClick={() => {
-                  setLanguage('en');
+                  dispatch(selectedLanguage('en'));
                   setShowLanguageOptions(false);
                 }}
               >
@@ -56,7 +63,7 @@ const Header = ({
               </li>
               <li
                 onClick={() => {
-                  setLanguage('de');
+                  dispatch(selectedLanguage('de'));
                   setShowLanguageOptions(false);
                 }}
               >
@@ -70,7 +77,7 @@ const Header = ({
               </li>
               <li
                 onClick={() => {
-                  setLanguage('ptBR');
+                  dispatch(selectedLanguage('ptBR'));
                   setShowLanguageOptions(false);
                 }}
               >
@@ -90,24 +97,12 @@ const Header = ({
             onClick={() => setShowLanguageOptions(!showLanguageOptions)}
           />
         </div>
-        {/* <SearchBar
-          bungieManifest={bungieManifest}
-          setShowSuggestions={setShowSuggestions}
-          showSuggestions={showSuggestions}
-        /> */}
+
         <button onClick={() => setShowLogin(true)}>
-          {commonText.login[language]}
+          { !emailInfo.displayName ? commonText.login[language] : emailInfo.displayName }
         </button>
-        {/* <Avatar /> */}
       </div>
 
-      {/* <select name="language" id="language">
-          <option value="en">English</option>
-          <option value="de">Deutsch</option>
-          <option value="pt-br">Português(BR)</option>
-          <option value="es">Español</option>
-          <option value="es-mx">Español (MX)</option>
-        </select> */}
     </header>
   );
 };

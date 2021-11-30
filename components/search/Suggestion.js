@@ -13,23 +13,24 @@ const Suggestion = ({ result }) => {
   const { destinyMemberships } = result;
   const stringCode = String(result.bungieGlobalDisplayNameCode);
 
-  useEffect(() => {
-    if (destinyMemberships[0]) {
-      const membershipId = destinyMemberships[0].membershipId;
-      const membershipType = destinyMemberships[0].membershipType;
-    }
+  // useEffect(() => {
+  //   if (destinyMemberships[0]) {
+  //     const membershipId = destinyMemberships[0].membershipId;
+  //     const membershipType = destinyMemberships[0].membershipType;
+  //   }
 
-    getProfile(membershipId, membershipType).then(({ Response }) => {
-      setLastPlayed({
-        date: Response && Response.profile.data.dateLastPlayed,
-        character:
-          Response &&
-          Object.values(Response.characters.data).find(
-            (character) => character.dateLastPlayed === lastPlayed.date
-          ),
-      });
-    })
-  }, [destinyMemberships, lastPlayed.date]);
+  //   getProfile(membershipId, membershipType).then(({ Response }) => {
+  //     console.log(Response);
+  //     setLastPlayed({
+  //       date: Response && Response.profile.data.dateLastPlayed,
+  //       character:
+  //         Response &&
+  //         Object.values(Response.characters.data).find(
+  //           (character) => character.dateLastPlayed === lastPlayed.date
+  //         ),
+  //     });
+  //   })
+  // }, [destinyMemberships, lastPlayed.date]);
 
     const handleClick = async () => {
       console.log(result);
