@@ -3,7 +3,7 @@
 
 .container {
   @include flex(center, space-between);
-  @include size(100px, 600px);
+  @include size(90px, 600px);
   backdrop-filter: blur(12px);
   background: rgba(255, 255, 255, 0.4);
   border-left: 1px solid rgb(200, 200, 200);
@@ -12,7 +12,7 @@
   box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 13px, rgba(0, 0, 0, 0.24) 0px 1px 12px;
   flex-flow: row wrap;
   margin: auto;
-  margin-top: -120px;
+  margin-top: -100px;
   padding-inline: 10px;
   position: relative;
   z-index: 1;

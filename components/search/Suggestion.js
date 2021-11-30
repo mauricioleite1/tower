@@ -31,8 +31,45 @@ const Suggestion = ({ result }) => {
     })
   }, [destinyMemberships, lastPlayed.date]);
 
+    const handleClick = async () => {
+      console.log(result);
+    // localStorage.setItem('recentSearch', JSON.stringify({ player: `${displayName}#${displayCode}` }) )
+
+    // searchDestinyPlayer(`${displayName}#${displayCode}`).then(
+    //   ({ Response }) => {
+    //     getProfile(
+    //       destinyMemberships[0].membershipId,
+    //       destinyMemberships[0].membershipType
+    //     ).then(async ({ Response }) => {
+    //       const response = await fetch(`https://www.bungie.net${bungieManifest.Response.jsonWorldComponentContentPaths.en.DestinyClassDefinition}`);
+    //       const response1 = await fetch(`https://www.bungie.net${bungieManifest.Response.jsonWorldComponentContentPaths.en.DestinyPresentationNodeDefinition}`);
+    //       const response2 = await fetch(`https://www.bungie.net${bungieManifest.Response.jsonWorldComponentContentPaths.en.DestinyRecordDefinition}`);
+    //       const responseActivity = await fetch(`https://www.bungie.net${bungieManifest.Response.jsonWorldComponentContentPaths.en.DestinyActivityDefinition}`);
+    //       const responseActivityMode = await fetch(`https://www.bungie.net${bungieManifest.Response.jsonWorldComponentContentPaths.en.DestinyActivityModeDefinition}`);
+    //       const responseInventoryItem = await fetch(`https://www.bungie.net${bungieManifest.Response.jsonWorldComponentContentPaths.en.DestinyInventoryItemDefinition}`);
+    //       const responseStatDefinition = await fetch(`https://www.bungie.net${bungieManifest.Response.jsonWorldComponentContentPaths.en.DestinyStatDefinition}`);
+    //       const responseProgDefinition = await fetch(`https://www.bungie.net${bungieManifest.Response.jsonWorldComponentContentPaths.en.DestinyProgressionDefinition}`);
+
+    //       setPlayerData({
+    //         ...Response,
+    //         classes: await response.json(),
+    //         presentation: await response1.json(),
+    //         progression: await responseProgDefinition.json(),
+    //         record: Object.values(await response2.json()),
+    //         activity: await responseActivity.json(),
+    //         activities: [],
+    //         activityModeDefinition: await responseActivityMode.json(),
+    //         inventoryItems: await responseInventoryItem.json(),
+    //         statDefinition: await responseStatDefinition.json(),
+    //       });
+    //     });
+    //   }
+    //   );
+  };
+
   return (
     <div
+    onClick={ handleClick }
       className={styles.container}
       style={{
         backgroundImage:
