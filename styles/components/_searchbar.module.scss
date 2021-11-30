@@ -1,25 +1,24 @@
-@use '../base/mixins' as m;
+@use '../base/mixins' as *;
 @use '../base/colors' as c;
 
 .container {
-  @include m.flex(center, space-between);
-  @include m.size(100px, 650px);
-  background: rgba(255, 255, 255, 0.45);
-  backdrop-filter: blur(26px);
+  @include flex(center, space-between);
+  @include size(90px, 600px);
+  backdrop-filter: blur(12px);
+  background: rgba(255, 255, 255, 0.4);
+  border-left: 1px solid rgb(200, 200, 200);
   border-radius: 50vh;
   border-top: 1px solid rgb(200, 200, 200);
-  border-left: 1px solid rgb(200, 200, 200);
-
   box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 13px, rgba(0, 0, 0, 0.24) 0px 1px 12px;
   flex-flow: row wrap;
   margin: auto;
-  margin-top: -60px;
+  margin-top: -100px;
   padding-inline: 10px;
+  position: relative;
   z-index: 1;
 
   ion-icon { 
     background: linear-gradient(210deg, c.$ac-main, c.$ac-secondary);
-    background-color: white;
     border-radius: 50%;
     color: white;
     cursor: pointer;
@@ -28,34 +27,44 @@
   }
 
   input {
-    @include m.size(50%);
-    @include m.transition(0.6s);
+    @include size(50%);
+    @include transition(0.6s);
     background: transparent;
     border: none;
-    color: c.$text-main;
-    outline: none;
-    font-size: 16px;
-    font-family: Sofia Pro, Poppins, Inter, sans-serif;
-    text-align: center;
-    letter-spacing: 0.1em;
-    padding-left: 20px;
     border-bottom: 1px solid whitesmoke;
+    color: whitesmoke;
+    font-family: Sofia Pro, Poppins, Inter, sans-serif;
+    font-size: 16px;
+    letter-spacing: 0.1em;
+    outline: none;
+    padding-left: 20px;
+    text-align: center;
+
     &::placeholder {
-      color: whitesmoke;
+      color: rgb(177, 177, 177);
+      opacity: 0.7;
+      font-weight: 200;
     }
   }
   nav {
-    @include m.flex(center, space-evenly);
-    @include m.size(60%);
-    h4 {
-      @include m.flex;
-      @include m.size(60%);
-      color: rgb(95, 95, 95);
-      cursor: pointer;
-      font-weight: 400;
-      font-size: 11px;
-      letter-spacing: 0.05rem;
+    @include flex(center, space-evenly);
+    @include size(60%);
 
+    h4 {
+      @include flex;
+      @include size(100%);
+      @include transition;
+      // border-radius: 50vh;
+      // border-bottom: 3px solid transparent;
+      color: rgb(10, 10, 10);
+      cursor: pointer;
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 0.05rem;
+      
+      &:hover {
+        opacity: 0.6;
+      }
       &:last-child {
         border-right: none;
       }
@@ -65,7 +74,7 @@
 }
 
 .hero-searchbar__inputnav {
-  @include m.size(80%, 86%);
+  @include size(80%, 86%);
 
   padding-left: 20px;
 }

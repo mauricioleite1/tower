@@ -1,45 +1,62 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
+import Link from 'next/link';
+import {
+  getProfile,
+  searchDestinyPlayer,
+  searchByGlobalNamePrefix,
+  getManifest,
+} from '../../api';
+
 import { searchBarNavOptions, commonText } from '../language';
 import { UserPreferences } from '../../context/user';
+import { PlayerContext } from '../../context/player';
 import styles from '../../styles/components/_searchbar.module.scss';
-import Link from 'next/link';
+import DetailedSearchBar from './DetailedSearchBar';
+import LoadingDetailedSearchBar from './loadingState/LoadingDetailedSearchBar';
 
-// import { getProfile, searchDestinyPlayer, searchByGlobalNamePrefix, getManifest } from '../../api/data';
+
 // import { PlayerContext, SearchContext } from '../../context';
 // import SuggestionsList from './SuggestionList';
 
 const SearchBar = ({ showSuggestions, setShowSuggestions }) => {
+  const [showDetailedSearchBar, setShowDetailedSearchBar] = useState(false);
   const [searchTerm, setSearchTerm] = useState(null);
   const searchInput = useRef(null);
   const { language } = useContext(UserPreferences);
-  // const [bungieManifest, setBungieManifest] = useState(null);
-  // const [loading, setLoading] = useState(false);
+  const [bungieManifest, setBungieManifest] = useState(null);
+  const [loading, setLoading] = useState(false);
   // const { searchSuggestions, setSearchSuggestions } = useContext(SearchContext);
-  // const { setPlayerData } = useContext(PlayerContext);
+  const { player, setPlayer } = useContext(PlayerContext);
+  const [result, setResult] = useState(null);
 
   useEffect(() => searchInput.current.focus(), []);
 
-  // useEffect(() => {
-  //   getManifest().then(async ({ Response }) => {
-  //     setBungieManifest({ Response });
-  //   });
-  // }, []);
+  useEffect(
+    () =>
+      getManifest().then(async ({ Response }) =>
+        setBungieManifest(Response.jsonWorldComponentContentPaths)
+      ),
+    []
+  );
 
-  // useEffect(() => {
-  //   if (searchTerm) {
-  //     const delayDebounceFn = setTimeout(() => {
-  //       setLoading(true)
-  //       searchByGlobalNamePrefix(searchTerm)
-  //       .then(({ Response }) => {
-  //         setShowSuggestions(true);
-  //         setSearchSuggestions(Response);
-  //         setLoading(false);
-  //       })
-  //     }, 500)
+  useEffect(() => {
+    if (searchTerm) {
+      const delayDebounceFn = setTimeout(() => {
+        searchByGlobalNamePrefix(searchTerm).then(({ Response }) => {
+          setShowDetailedSearchBar(true);
+          setResult(Response);
+        });
+      }, 700);
 
-  //     return () => clearTimeout(delayDebounceFn)
+      return () => clearTimeout(delayDebounceFn);
+    }
+  }, [searchTerm]);
+
+  // const searchOnKey = async ({ key }) => {
+  //   if (key === 'Enter') {
+  //     searchDestinyPlayer(searchTerm.replace(/#|_|-|&/g, '%23')).then((a) => setTest(a))
   //   }
-  // }, [searchTerm, setSearchSuggestions, setShowSuggestions])
+  // }
 
   // const handleKeyUp = async ({ key }) => {
   //   if (key === 'Enter') {
@@ -72,11 +89,15 @@ const SearchBar = ({ showSuggestions, setShowSuggestions }) => {
   //   }
   // };
 
-  const lang = 'ptBR';
-
   return (
     <>
       <div className={styles.container}>
+        { showDetailedSearchBar && (
+          <DetailedSearchBar
+            searchTerm={searchTerm}
+            result={result}
+          />
+        ) }
         {/* <Link to="/crucible"> */}
         <div className="hero-searchbar__inputnav">
           <input
@@ -85,7 +106,8 @@ const SearchBar = ({ showSuggestions, setShowSuggestions }) => {
             placeholder={commonText.search[language]}
             id="searchInput"
             onChange={({ target: { value } }) => setSearchTerm(value)}
-            // onKeyUp={handleKeyUp}
+            onClick={() => setShowDetailedSearchBar(!showDetailedSearchBar)}
+            // onKeyUp={searchOnKey}
             autoComplete="off"
           />
 

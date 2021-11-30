@@ -1,13 +1,13 @@
 import Layout from '../components/layout';
-import { UserPreferencesStorage } from '../context/user';
+import GlobalContext from '../context';
 import '../styles/main.scss';
 
 export default function MyApp({ Component, pageProps }) {
   return (
-    <UserPreferencesStorage>
+    <GlobalContext>
       <Layout>
         <Component {...pageProps} />
       </Layout>
-    </UserPreferencesStorage>
+    </GlobalContext>
   );
 }

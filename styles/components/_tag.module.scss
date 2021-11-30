@@ -1,0 +1,27 @@
+@use '../base/mixins' as m;
+@use '../base/colors' as c;
+
+
+.container {
+  @include m.flex(center, space-between);
+  @include m.size(24px, 60px);
+  background-color: rgb(14, 14, 14);
+  border-radius: 2px;
+  font-size: 0.76em;
+  padding-inline: 4px;
+  text-align: center;
+}
+
+.tag span:last-child {
+  font-size: 0.94em;
+  text-transform: uppercase;
+}
+
+.tag h5 {
+  text-transform: uppercase;
+  font-size: 0.65em;
+}
+
+.tag h5 ion-icon {
+  font-size: 1.7em;
+}
