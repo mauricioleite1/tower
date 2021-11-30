@@ -55,7 +55,7 @@ export const languageLogin = {
     register: 'Registre-se',
     keepMe: 'Me mantenha conectado',
     bannerTitle: 'Junte-se à nossa comunidade',
-    bannerParagraph: 'Explore o universe de Destiny interaja com o que quiser sobre o seu guardião, encontre a melhor opção de armas para você e gerencie seu equipamentos em tempo real. Confira as estatística de seus oponentes antes das partidas.',
+    bannerParagraph: 'Explore o universe de Destiny interaja com o que quiser sobre o seu guardião, encontre a melhor opção de armas para você e gerencie seu equipamentos em tempo real. Confira as estatísticas de seus oponentes antes das partidas.',
   },
 }
 

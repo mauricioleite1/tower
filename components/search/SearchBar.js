@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import { searchBarNavOptions, commonText } from '../language';
 import { UserPreferences } from '../../context/user';
+import styles from '../../styles/components/_searchbar.module.scss';
 import Link from 'next/link';
 
 // import { getProfile, searchDestinyPlayer, searchByGlobalNamePrefix, getManifest } from '../../api/data';
@@ -75,7 +76,7 @@ const SearchBar = ({ showSuggestions, setShowSuggestions }) => {
 
   return (
     <>
-      <div className="hero-searchbar">
+      <div className={styles.container}>
         {/* <Link to="/crucible"> */}
         <div className="hero-searchbar__inputnav">
           <input
