@@ -34,6 +34,7 @@ const Landing = ({ showSuggestions, setShowSuggestions }) => {
       const responseStatDefinition = await fetch(`https://www.bungie.net${manifest.DestinyStatDefinition}`);
 
       setBungieData({
+        manifest,
         activityDefinition: await responseActivityDefinition.json(),
         activityModeDefinition: await responseActivityModeDefinition.json(),
         classDefinition: await responseClassDefinition.json(),

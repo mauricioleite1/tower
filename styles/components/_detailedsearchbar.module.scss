@@ -11,16 +11,29 @@
   @include flex;
   @include size(auto, 94%);
   
-  background: rgba(255, 255, 255, 1);
+  background: rgb(255, 255, 255);
   border-radius: 18px;
   bottom: 6.5rem;
   box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 13px, rgba(0, 0, 0, 0.24) 0px 1px 12px;
   cursor: pointer;
   flex-direction: column;
   left: 3%;
-  max-height: 500px;
-  padding: 10px;
+  max-height: 450px;
+  padding-bottom: 10px;
   position: absolute;
+
+  ion-icon[ id="platform"] { 
+    @include transition;
+    background: transparent;
+    border-radius: 0;
+    color: white;
+    cursor: pointer;
+    font-size: 14px;
+    padding: 0;
+    &:hover {
+      opacity: 0.95;
+    }
+  }
 
   h6 {
     font-weight: 300;
@@ -31,6 +44,10 @@
       font-weight: 600;
     }
   }
+}
+
+.nameandcode {
+  @include flex;
 }
 
 .search {
@@ -65,9 +82,12 @@
   // @include size;
   flex-direction: column;
   text-align: center;
-  // padding-block: 40px;
-  h6 {
-    border-bottom: 1px solid whitesmoke;
+  gap: 10px;
+  padding-block: 40px;
+  h5 {
+    // border-bottom: 1px solid whitesmoke;
+    font-weight: 300;
+
     &:last-child {
       font-weight: bold;
     }

@@ -1,242 +1,92 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import Image from 'next/image';
-import { getProfile } from '../../api';
+import { getLinkedProfile, getProfile } from '../../api';
 import Tag from '../base/Tag';
+import { BungieDataContext } from '../../context/bungieData';
 import TimeAgo from 'timeago-react';
 import styles from '../../styles/components/_suggestion.module.scss';
+import { useAppSelector, useAppDispatch } from '../../redux/app/hooks.ts';
+import { languageSuggestion } from '../language';
 
 const Suggestion = ({ result }) => {
+  const { bungieData, setBungieData } = useContext(BungieDataContext);
+  const language = useAppSelector((state) => state.user.preferences.language);
+  
   const [showErrorMessage, setShowErrorMessage] = useState(false);
-  const [lastPlayed, setLastPlayed] = useState({
-    character: null,
-    date: null,
-  });
+  const [searchedUser, setSearchedUser] = useState({});
   const { destinyMemberships } = result;
   const stringCode = String(result.bungieGlobalDisplayNameCode);
 
   useEffect(() => {
-    if (destinyMemberships[0]) {
-      const membershipId = destinyMemberships[0].membershipId;
-      const membershipType = destinyMemberships[0].membershipType;
+    if (result && result.destinyMemberships[0]) {
+      const initialId = result.destinyMemberships[0].membershipId;
+      const initialType = result.destinyMemberships[0].membershipType;
+
+      getLinkedProfile(initialId, initialType).then(
+        ({ Response: { profiles } }) => {
+          const profilesList = profiles.sort(
+            (a, b) => new Date(b.dateLastPlayed) - new Date(a.dateLastPlayed)
+          );
+          const lastUsedProfile = profilesList[0];
+          const { membershipId, membershipType, dateLastPlayed } =
+            lastUsedProfile;
+
+          getProfile(membershipId, membershipType).then(({ Response }) =>
+            setSearchedUser({
+              general: Response,
+              lastPlayedCharacter: Object.values(Response.characters.data).find((a) => a.dateLastPlayed === dateLastPlayed),
+            }
+            )
+          );
+        }
+      );
     }
+  }, [result]);
 
-    getProfile(membershipId, membershipType)
-      .then(({ Response }) => {
-        // console.log(Response);
-      setLastPlayed({
-        date: Response && Response.profile.data.dateLastPlayed,
-        character:
-          Response &&
-          Object.values(Response.characters.data).find(
-            (character) => character.dateLastPlayed === lastPlayed.date
-          ),
-      });
-    }).catch((error) => {
-      setShowErrorMessage(true);
-      console.log(error)
-    });
-  }, [destinyMemberships, lastPlayed.date]);
+  const handleClick = async () => {
+    const initialId = result.destinyMemberships[0].membershipId;
+    const initialType = result.destinyMemberships[0].membershipType;
 
-    const handleClick = async () => {
-      console.log(result);
-    // localStorage.setItem('recentSearch', JSON.stringify({ player: `${displayName}#${displayCode}` }) )
+    getLinkedProfile(initialId, initialType).then(
+      ({ Response: { profiles } }) => {
+        const profilesList = profiles.sort(
+          (a, b) => new Date(b.dateLastPlayed) - new Date(a.dateLastPlayed)
+        );
+        const lastUsedProfile = profilesList[0];
 
-    // searchDestinyPlayer(`${displayName}#${displayCode}`).then(
-    //   ({ Response }) => {
-    //     getProfile(
-    //       destinyMemberships[0].membershipId,
-    //       destinyMemberships[0].membershipType
-    //     ).then(async ({ Response }) => {
-    //       const response = await fetch(`https://www.bungie.net${bungieManifest.Response.jsonWorldComponentContentPaths.en.DestinyClassDefinition}`);
-    //       const response1 = await fetch(`https://www.bungie.net${bungieManifest.Response.jsonWorldComponentContentPaths.en.DestinyPresentationNodeDefinition}`);
-    //       const response2 = await fetch(`https://www.bungie.net${bungieManifest.Response.jsonWorldComponentContentPaths.en.DestinyRecordDefinition}`);
-    //       const responseActivity = await fetch(`https://www.bungie.net${bungieManifest.Response.jsonWorldComponentContentPaths.en.DestinyActivityDefinition}`);
-    //       const responseActivityMode = await fetch(`https://www.bungie.net${bungieManifest.Response.jsonWorldComponentContentPaths.en.DestinyActivityModeDefinition}`);
-    //       const responseInventoryItem = await fetch(`https://www.bungie.net${bungieManifest.Response.jsonWorldComponentContentPaths.en.DestinyInventoryItemDefinition}`);
-    //       const responseStatDefinition = await fetch(`https://www.bungie.net${bungieManifest.Response.jsonWorldComponentContentPaths.en.DestinyStatDefinition}`);
-    //       const responseProgDefinition = await fetch(`https://www.bungie.net${bungieManifest.Response.jsonWorldComponentContentPaths.en.DestinyProgressionDefinition}`);
+        console.log(lastUsedProfile);
 
-    //       setPlayer({
-    //         ...Response,
-    //         classes: await response.json(),
-    //         presentation: await response1.json(),
-    //         progression: await responseProgDefinition.json(),
-    //         record: Object.values(await response2.json()),
-    //         activity: await responseActivity.json(),
-    //         activities: [],
-    //         activityModeDefinition: await responseActivityMode.json(),
-    //         inventoryItems: await responseInventoryItem.json(),
-    //         statDefinition: await responseStatDefinition.json(),
-    //       });
-    //     });
-    //   }
-    //   );
+        // pegar info
+      }
+    );
   };
 
   return (
     <>
-    { !showErrorMessage ? (
-    <div
-    onClick={ handleClick }
-    className={styles.container}
-    style={{
-      backgroundImage:
-            lastPlayed.character &&
-            `url(https://www.bungie.net${lastPlayed.character.emblemBackgroundPath})`,
-        }}
-      >
-        <div className={styles.title}>
-          <h3>{result.bungieGlobalDisplayName}</h3>
-          {stringCode.length === 3 ? (
-            <Tag title="#" shownInfo={stringCode.padStart(4, '0')} />
-          ) : (
-            <Tag title="#" shownInfo={stringCode} />
-          )}
+      { searchedUser && searchedUser.general && (
+        <div
+          onClick={handleClick}
+          className={styles.container}
+          style={{
+            backgroundImage:
+                  searchedUser && searchedUser.lastPlayedCharacter &&
+                  `url(https://www.bungie.net${searchedUser.lastPlayedCharacter.emblemBackgroundPath})`,
+              }}
+        >
+          <div className={styles.title}>
+              { searchedUser && searchedUser.general && <h3>{searchedUser.general.profile.data.userInfo.bungieGlobalDisplayName}</h3> }
+              {stringCode.length === 3 ? (
+                <Tag title="#" shownInfo={stringCode.padStart(4, '0')} />
+                ) : (
+                  <Tag title="#" shownInfo={stringCode} />
+                  )}
+          {/* { checkPlatform() } */}
+          </div>
+          { searchedUser && searchedUser.general && <h6>{ languageSuggestion[language].lastseen }<span>{<TimeAgo datetime={searchedUser.general.profile.data.dateLastPlayed} locale={ language } />}</span></h6> }
         </div>
-        <h6>Last seen<span>{<TimeAgo datetime={lastPlayed.date} locale="en" />}</span></h6>
-      </div>
-    )
-    : <div>Could not retrieve data from Bungie</div> 
-    }
-  </>
+      )}
+    </>
   );
 };
 
 export default Suggestion;
-
-// const Suggestion = ({
-//   displayName,
-//   displayCode,
-//   info,
-//   info: { destinyMemberships },
-//   bungieManifest,
-// }) => {
-//   const [dateLastPlayed, setDateLastPlayed] = useState(null);
-//   const [lastPlayedCharacter, setLastPlayedCharacter] = useState(null);
-//   const { setPlayerData } = useContext(PlayerContext);
-//   const { lastTimeSeen } = SuggestionsLang;
-//   const stringCode = String(displayCode);
-
-//   useEffect(() => {
-//     const membershipId = destinyMemberships[0].membershipId;
-//     const membershipType = destinyMemberships[0].membershipType;
-//     getProfile(membershipId, membershipType)
-//       .then(({ Response }) => {
-//         const lastPlayed = Response.profile.data.dateLastPlayed;
-//         setLastPlayedCharacter(
-//           Object.values(Response.characters.data).find(
-//             (a) => a.dateLastPlayed === lastPlayed
-//           )
-//         );
-
-//         setDateLastPlayed(lastPlayed);
-//       })
-//       .catch(() => {
-//         const membershipId = destinyMemberships[1].membershipId;
-//         const membershipType = destinyMemberships[1].membershipType;
-
-//         getProfile(membershipId, membershipType).then(({ Response }) => {
-//           const lastPlayed = Response.profile.data.dateLastPlayed;
-//           setLastPlayedCharacter(
-//             Object.values(Response.characters.data).find(
-//               (a) => a.dateLastPlayed === lastPlayed
-//             )
-//           );
-
-//           setDateLastPlayed(lastPlayed);
-//         });
-//       })
-//       .catch(() => {
-//         const membershipId = destinyMemberships[2].membershipId;
-//         const membershipType = destinyMemberships[2].membershipType;
-
-//         getProfile(membershipId, membershipType).then(({ Response }) => {
-//           const lastPlayed = Response.profile.data.dateLastPlayed;
-//           setLastPlayedCharacter(
-//             Object.values(Response.characters.data).find(
-//               (a) => a.dateLastPlayed === lastPlayed
-//             )
-//           );
-
-//           setDateLastPlayed(lastPlayed);
-//         });
-//       })
-//       .catch((a) =>
-//         console.error(
-//           `Unable to fetch profile data for ${info.bungieGlobalDisplayName}#${info.bungieGlobalDisplayNameCode} from Bungie`
-//         )
-//       );
-//   }, [
-//     destinyMemberships,
-//     info.bungieGlobalDisplayName,
-//     info.bungieGlobalDisplayNameCode,
-//   ]);
-
-//   const handleClick = async () => {
-//     localStorage.setItem('recentSearch', JSON.stringify({ player: `${displayName}#${displayCode}` }) )
-
-//     searchDestinyPlayer(`${displayName}#${displayCode}`).then(
-//       ({ Response }) => {
-//         getProfile(
-//           destinyMemberships[0].membershipId,
-//           destinyMemberships[0].membershipType
-//         ).then(async ({ Response }) => {
-//           const response = await fetch(`https://www.bungie.net${bungieManifest.Response.jsonWorldComponentContentPaths.en.DestinyClassDefinition}`);
-//           const response1 = await fetch(`https://www.bungie.net${bungieManifest.Response.jsonWorldComponentContentPaths.en.DestinyPresentationNodeDefinition}`);
-//           const response2 = await fetch(`https://www.bungie.net${bungieManifest.Response.jsonWorldComponentContentPaths.en.DestinyRecordDefinition}`);
-//           const responseActivity = await fetch(`https://www.bungie.net${bungieManifest.Response.jsonWorldComponentContentPaths.en.DestinyActivityDefinition}`);
-//           const responseActivityMode = await fetch(`https://www.bungie.net${bungieManifest.Response.jsonWorldComponentContentPaths.en.DestinyActivityModeDefinition}`);
-//           const responseInventoryItem = await fetch(`https://www.bungie.net${bungieManifest.Response.jsonWorldComponentContentPaths.en.DestinyInventoryItemDefinition}`);
-//           const responseStatDefinition = await fetch(`https://www.bungie.net${bungieManifest.Response.jsonWorldComponentContentPaths.en.DestinyStatDefinition}`);
-//           const responseProgDefinition = await fetch(`https://www.bungie.net${bungieManifest.Response.jsonWorldComponentContentPaths.en.DestinyProgressionDefinition}`);
-
-//           setPlayerData({
-//             ...Response,
-//             classes: await response.json(),
-//             presentation: await response1.json(),
-//             progression: await responseProgDefinition.json(),
-//             record: Object.values(await response2.json()),
-//             activity: await responseActivity.json(),
-//             activities: [],
-//             activityModeDefinition: await responseActivityMode.json(),
-//             inventoryItems: await responseInventoryItem.json(),
-//             statDefinition: await responseStatDefinition.json(),
-//           });
-//         });
-//       }
-//       );
-//   };
-
-//   return (
-//     <div
-//       className="suggestion"
-//       onClick={handleClick}
-//       // style={ lastPlayedCharacter && { backgroundImage: `url(https://www.bungie.net${lastPlayedCharacter.emblemBackgroundPath})` } }
-//     >
-//       <div>
-//         {lastPlayedCharacter && (
-//           <img
-//             src={`https://www.bungie.net${lastPlayedCharacter.emblemPath}`}
-//             alt="Character Emblem"
-//           />
-//         )}
-//         <section>
-//           <div>
-//             <h4>{displayName}</h4>
-//             { stringCode.length === 3
-//               ? <Tag title="#" shownInfo={stringCode.padStart(4, '0')} />
-//               : <Tag title="#" shownInfo={stringCode} /> }
-//           {dateLastPlayed && (
-//             <div className="suggestion_last-time">
-//               <h5>{lastTimeSeen.en}</h5>
-//               <h6><TimeAgo datetime={dateLastPlayed} locale="en" /></h6>
-//             </div>
-//           )}
-//           </div>
-//         </section>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default Suggestion;

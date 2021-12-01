@@ -1,4 +1,4 @@
-@use 'base/colors';
+@use 'base/colors' as c;
 @use 'base/animations';
 @use 'base/fonts';
 @use 'base/mixins';
@@ -21,7 +21,7 @@ html,
 body {
   padding: 0;
   margin: 0;
-  font-family: Inter, Poppins, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+  font-family: Outfit, Inter, Poppins, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 
@@ -29,4 +29,9 @@ a {
   color: inherit;
   text-decoration: none;
   cursor: pointer;
+}
+
+::selection {
+  background-color: c.$ac-main;
+  color: white;
 }

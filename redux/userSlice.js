@@ -27,29 +27,3 @@ const userSlice = createSlice({
 
 export const { login, selectedLanguage } = userSlice.actions;
 export default userSlice.reducer;
-
-// import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-
-// interface UserState {
-//   info: object;
-// }
-
-// const initialState: UserState = {
-//   info: {
-//     name: '',
-//     email: '',
-//   },
-// }
-
-// const userSlice = createSlice({
-//   name: 'user',
-//   initialState,
-//   reducers: {
-//     login(state, action: PayloadAction<string>) {
-//       state.info = action.payload;
-//     }
-//   }
-// });
-
-// export const { login } = userSlice.actions;
-// export default userSlice.reducer;

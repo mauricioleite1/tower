@@ -73,3 +73,15 @@ export const languageSearch = {
     canyoutry: `Poderia tentar novamente?`
   }
 }
+
+export const languageSuggestion = {
+  en: {
+    lastseen: 'Last seen'
+  },
+  de: {
+    lastseen: 'Last seen'
+  },
+  'pt-br': {
+    lastseen: 'Online há'
+  },
+}

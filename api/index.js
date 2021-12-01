@@ -31,6 +31,13 @@ export const getProfile = async (membershipId, membershipType = -1) => {
   return bungieApiFetch(API_ENDPOINT);
 }
 
+export const getLinkedProfile = async (membershipId, membershipType = -1) => {
+  const API_ENDPOINT = `${API_BASE_URL}/Destiny2/${membershipType}/Profile/${membershipId}/LinkedProfiles/?getAllMemberships=true`;
+  return bungieApiFetch(API_ENDPOINT);
+}
+
+
+
 // export const getActivityHistory = async (characterId, membershipId, membershipType = 1) => {
 //   const API_ENDPOINT = `${API_BASE_URL}/Destiny2/${membershipType}/Account/${membershipId}/Character/${characterId}/Stats/Activities/?count=100`
 //   return apiFetch(API_ENDPOINT);

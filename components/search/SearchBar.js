@@ -22,7 +22,7 @@ import LoadingDetailedSearchBar from './loadingState/LoadingDetailedSearchBar';
 const SearchBar = ({ showSuggestions, setShowSuggestions }) => {
   const language = useAppSelector((state) => state.user.preferences.language);
   const [showDetailedSearchBar, setShowDetailedSearchBar] = useState(false);
-  const [searchTerm, setSearchTerm] = useState(null);
+  const [searchTerm, setSearchTerm] = useState('');
   const searchInput = useRef(null);
   const [bungieManifest, setBungieManifest] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -37,7 +37,6 @@ const SearchBar = ({ showSuggestions, setShowSuggestions }) => {
       const delayedSearch = setTimeout(() => {
         searchByGlobalNamePrefix(searchTerm).then(({ Response }) => {
           setResult(Response);
-          console.log(Response);
           setShowDetailedSearchBar(true);
         });
       }, 500);
@@ -45,43 +44,6 @@ const SearchBar = ({ showSuggestions, setShowSuggestions }) => {
       return () => clearTimeout(delayedSearch);
     }
   }, [searchTerm]);
-
-  // const searchOnKey = async ({ key }) => {
-  //   if (key === 'Enter') {
-  //     searchDestinyPlayer(searchTerm.replace(/#|_|-|&/g, '%23')).then((a) => setTest(a))
-  //   }
-  // }
-
-  // const handleKeyUp = async ({ key }) => {
-  //   if (key === 'Enter') {
-  //     searchDestinyPlayer(searchTerm.replace(/#|_|-|&/g, '%23'))
-  //       .then(({ Response }) => {
-  //         getProfile(Response[0].membershipId, Response[0].membershipType, Response)
-  //         .then(async ({ Response }) => {
-  //           const response = await fetch(`https://www.bungie.net${bungieManifest.Response.jsonWorldComponentContentPaths.en.DestinyClassDefinition}`);
-  //           const response1 = await fetch(`https://www.bungie.net${bungieManifest.Response.jsonWorldComponentContentPaths.en.DestinyPresentationNodeDefinition}`);
-  //           const response2 = await fetch(`https://www.bungie.net${bungieManifest.Response.jsonWorldComponentContentPaths.en.DestinyRecordDefinition}`);
-  //           const responseActivity = await fetch(`https://www.bungie.net${bungieManifest.Response.jsonWorldComponentContentPaths.en.DestinyActivityDefinition}`);
-  //           const responseActivityMode = await fetch(`https://www.bungie.net${bungieManifest.Response.jsonWorldComponentContentPaths.en.DestinyActivityModeDefinition}`);
-  //           const responseInventoryItem = await fetch(`https://www.bungie.net${bungieManifest.Response.jsonWorldComponentContentPaths.en.DestinyInventoryItemDefinition}`);
-  //           const responseStatDefinition = await fetch(`https://www.bungie.net${bungieManifest.Response.jsonWorldComponentContentPaths.en.DestinyStatDefinition}`);
-  //           const responseProgDefinition = await fetch(`https://www.bungie.net${bungieManifest.Response.jsonWorldComponentContentPaths.en.DestinyProgressionDefinition}`);
-
-  //           setPlayerData({
-  //             ...Response,
-  //             classes: await response.json(),
-  //             presentation: await response1.json(),
-  //             progression: await responseProgDefinition.json(),
-  //             record: Object.values(await response2.json()),
-  //             activity: await responseActivity.json(),
-  //             activityModeDefinition: await responseActivityMode.json(),
-  //             inventoryItems: await responseInventoryItem.json(),
-  //             statDefinition: await responseStatDefinition.json(),
-  //           })
-  //         })
-  //     })
-  //   }
-  // };
 
   return (
     <>
@@ -114,7 +76,7 @@ const SearchBar = ({ showSuggestions, setShowSuggestions }) => {
           </nav>
         </div>
 
-        <ion-icon name="search-outline" />
+        <ion-icon className={styles.searchButton} name="search-outline" />
       </div>
       {/* { showSuggestions && searchSuggestions && <SuggestionsList bungieManifest={ bungieManifest } /> } */}
     </>
