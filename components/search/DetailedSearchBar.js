@@ -3,9 +3,9 @@ import { languageSearch } from '../language';
 import { UserPreferences } from '../../context/user';
 import { useAppDispatch, useAppSelector } from '../../redux/app/hooks.ts';
 import Image from 'next/image';
+import Link from 'next/link';
 import Suggestion from './Suggestion';
 import styles from '../../styles/components/_detailedsearchbar.module.scss';
-
 
 const DetailedSearchBar = ({ searchTerm, result }) => {
   const language = useAppSelector((state) => state.user.preferences.language);
@@ -14,23 +14,18 @@ const DetailedSearchBar = ({ searchTerm, result }) => {
     <>
       {searchTerm && result && (
         <section className={styles.container}>
-          <h6>
-            All results for <span>{searchTerm}</span>
-          </h6>
+          <h6>All results for <span>{searchTerm}</span></h6>
 
           <div className={styles.search}>
-
             {result && result.searchResults.length !== 0 ? (
-
               <div className={styles.searchList}>
-                {searchTerm && result &&
+                {searchTerm &&
+                  result &&
                   result.searchResults.map((result, key) => (
-                    <Suggestion key={key} result={result} />
+                      <Suggestion key={key} result={result} />
                   ))}
               </div>
-
             ) : (
-
               <div className={styles.notFoundImage}>
                 <Image
                   src="/images/ghost.jpg"
@@ -41,9 +36,7 @@ const DetailedSearchBar = ({ searchTerm, result }) => {
                 <h5>{languageSearch[language].cantfind}</h5>
                 <h5>{languageSearch[language].canyoutry}</h5>
               </div>
-
             )}
-
           </div>
 
           {/* <div className={styles.categories}>
