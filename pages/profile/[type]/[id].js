@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import { getProfile, getLinkedProfile, getGroupsForMember } from '../../../api';
 import styles from '../../../styles/pages/_profile.module.scss';
 import Image from 'next/image';
+import Medal from '../../../components/base/Medal';
 
 const Profile = () => {
   const [profile, setProfile] = useState({});
@@ -32,8 +33,9 @@ const Profile = () => {
 
   return (
     <main className={styles.container}>
-      <div className={styles.content}>
+      {/* <div className={styles.content}> */}
         {/* Profile page { id } { type } */}
+
         <section className={styles.left}>
           <div className={styles.profileInfo}>
             {profile && bnetMembership && (
@@ -53,14 +55,24 @@ const Profile = () => {
               </h2>
               <h6>{profileClan && profileClan.name}</h6>
             </div>
+
+            <div className={styles.interaction}>
+              <ion-icon name="flag" />
+              <ion-icon name="mail" />
+              <ion-icon name="logo-twitter" />
+              <ion-icon name="logo-linkedin" />
+              <ion-icon name="logo-instagram" />
+            </div>
+
+
           </div>
-          <div className={styles.interaction}>
-            <ion-icon name="flag" />
-            <ion-icon name="mail" />
-            <ion-icon name="logo-twitter" />
-            <ion-icon name="logo-linkedin" />
-            <ion-icon name="logo-instagram" />
+
+
+          <div className={styles.medals}>
+            <Medal title={ 'sherpa' } />
+            <Medal title={ 'destroyer' } />
           </div>
+
 
           <div className={styles.characters__container}>
             {profile &&
@@ -87,8 +99,9 @@ const Profile = () => {
           </div>
         </section>
 
-        <section className={styles.right}></section>
-      </div>
+
+        {/* <section className={styles.right}></section> */}
+      {/* </div> */}
     </main>
   );
 };
