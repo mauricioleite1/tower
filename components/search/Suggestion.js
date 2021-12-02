@@ -1,31 +1,29 @@
 import React, { useState, useEffect, useContext } from 'react';
-import Image from 'next/image';
-import { getLinkedProfile, getProfile } from '../../api';
-import Tag from '../base/Tag';
 import { BungieDataContext } from '../../context/bungieData';
-import TimeAgo from 'timeago-react';
-import styles from '../../styles/components/_suggestion.module.scss';
-import { useAppSelector, useAppDispatch } from '../../redux/app/hooks.ts';
+import { getLinkedProfile, getProfile } from '../../api';
 import { languageSuggestion } from '../language';
+import { useAppSelector, useAppDispatch } from '../../redux/app/hooks.ts';
 import { useRouter } from 'next/router';
+import styles from '../../styles/components/_suggestion.module.scss';
+import Tag from '../base/Tag';
+import TimeAgo from 'timeago-react';
 
 const Suggestion = ({ result }) => {
   const { bungieData, setBungieData } = useContext(BungieDataContext);
-  const language = useAppSelector((state) => state.user.preferences.language);
-
   const [showAdditionalInfo, setShowAdditionalInfo] = useState(false);
-
   const [showErrorMessage, setShowErrorMessage] = useState(false);
   const [searchedUser, setSearchedUser] = useState({});
-  const { destinyMemberships } = result;
-  const stringCode = String(result.bungieGlobalDisplayNameCode);
   const router = useRouter();
+
+  const language = useAppSelector((state) => state.user.preferences.language);
+  const stringCode = String(result.bungieGlobalDisplayNameCode);
+  const { destinyMemberships } = result;
 
   useEffect(() => {
     if (result && result.destinyMemberships[0]) {
       const initialId = result.destinyMemberships[0].membershipId;
       const initialType = result.destinyMemberships[0].membershipType;
-
+      
       getLinkedProfile(initialId, initialType).then(
         ({ Response: { profiles } }) => {
           const profilesList = profiles.sort(
@@ -55,7 +53,7 @@ const Suggestion = ({ result }) => {
   };
 
   const handleMouseOver = () => {
-    setShowAdditionalInfo(!showAdditionalInfo);
+    // setShowAdditionalInfo(!showAdditionalInfo);
   };
 
   return (
@@ -101,7 +99,7 @@ const Suggestion = ({ result }) => {
               </span>
             </h6>
           )}
-          {showAdditionalInfo && (
+          {/* {showAdditionalInfo && (
             <div className={styles.additionalInfo}>
               <h3>
                 {
@@ -110,7 +108,7 @@ const Suggestion = ({ result }) => {
                 }
               </h3>
             </div>
-          )}
+          )} */}
 
         </div>
       )}

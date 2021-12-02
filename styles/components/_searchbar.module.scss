@@ -19,7 +19,7 @@
 
   ion-icon { 
     @include transition;
-    background: linear-gradient(45deg, c.$ac-main, rgb(47, 102, 255));
+    background: linear-gradient(45deg, c.$ac-main, rgb(82, 99, 255));
     border-radius: 50%;
     color: white;
     cursor: pointer;
@@ -39,6 +39,7 @@
     font-family: Sofia Pro, Poppins, Inter, sans-serif;
     font-size: 16px;
     letter-spacing: 0.1em;
+    font-weight: 600;
     outline: none;
     padding-left: 20px;
     text-align: center;

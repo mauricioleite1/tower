@@ -27,7 +27,7 @@ export const searchByGlobalNamePrefix = async (displayNamePrefix, page = 0) => {
 // }
 
 export const getProfile = async (membershipId, membershipType = -1) => {
-  const API_ENDPOINT = `${API_BASE_URL}/Destiny2/${membershipType}/Profile/${membershipId}/?components=100,104,200,202,205,1100`;
+  const API_ENDPOINT = `${API_BASE_URL}/Destiny2/${membershipType}/Profile/${membershipId}/?components=100,102,103,104,105,200,201,202,203,204,205,800,900,1100`;
   return bungieApiFetch(API_ENDPOINT);
 }
 
@@ -36,7 +36,10 @@ export const getLinkedProfile = async (membershipId, membershipType = -1) => {
   return bungieApiFetch(API_ENDPOINT);
 }
 
-
+export const getGroupsForMember = async (membershipId, membershipType = -1, filter = 0, groupType = 1) => {
+  const API_ENDPOINT = `${API_BASE_URL}/GroupV2/User/${membershipType}/${membershipId}/${filter}/${groupType}/`;
+  return bungieApiFetch(API_ENDPOINT);
+}
 
 // export const getActivityHistory = async (characterId, membershipId, membershipType = 1) => {
 //   const API_ENDPOINT = `${API_BASE_URL}/Destiny2/${membershipType}/Account/${membershipId}/Character/${characterId}/Stats/Activities/?count=100`

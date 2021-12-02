@@ -1,0 +1,90 @@
+@use '../base/mixins' as *;
+@use '../base/colors' as c;
+
+.container {
+  @include size(100vh, 100vw);
+}
+
+.content {
+  @include flex(flex-start, space-between);
+  @include size(100vh, 100%);
+  // background-color: red;
+  margin: auto;
+  overflow-x: hidden;
+}
+
+.left {
+  @include flex(center, space-around);
+  @include size(100vh, 16rem);
+  // background: linear-gradient(45deg, rgba(82, 99, 255, 0.5), rgba(98, 0, 255, 0.5) 40%, rgba(44, 44, 44, 0.5) 100%);
+  background-color: rgb(231, 231, 231);
+  border-bottom: 5px solid black;
+  flex-direction: column;
+  position: fixed;
+  gap: 10px;
+  margin-left: 100px;
+}
+
+.right {
+  @include flex;
+  @include size(auto, 80%);
+  min-height: 180vh;
+  // backdrop-filter: blur(25px);
+  flex-direction: column;
+}
+
+.profileInfo {
+  @include flex;
+  @include size;
+
+  gap: 20px;
+  // font-family: Inter;
+  margin-left: -180px;
+}
+
+.info {
+  h2 {
+    font-family: Inter, Outfit, sans-serif;
+    font-weight: 800;
+  }
+}
+
+.picture {
+  @include size(160px,160px);
+
+  background-size: contain;
+  background-position: center;
+  border-radius: 50vw;
+  position: relative;
+  border: 10px solid white;
+}
+
+.interaction {
+  @include flex;
+  @include size;
+  flex-direction: column;
+  gap: 10px;
+  padding-inline: 20px;
+
+  h4 {
+    @include flex;
+    font-family: Inter, sans-serif;
+    gap: 10px;
+    // color: white;
+    cursor: pointer;
+  }
+
+  ion-icon {
+    @include transition;
+    background-color: rgb(5, 5, 5);
+    color: white;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 50%;
+
+    &:hover {
+      background-color: transparent;
+      color: rgb(5, 5, 5);
+    }
+  }
+}
