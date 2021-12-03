@@ -44,40 +44,63 @@ const SearchBar = ({ showSuggestions, setShowSuggestions }) => {
 
   useEffect(() => {
     if (results) {
-      const { searchResults } = results;
-      
-      searchResults.map((result) => {
-        if (result.destinyMemberships.length > 0) {
-          const initialId = result.destinyMemberships[0].membershipId;
-          const initialType = result.destinyMemberships[0].membershipType;
-  
-          getLinkedProfile(initialId, initialType).then(
-            ({ Response: { profiles } }) => {
+      const validResults = results.searchResults.filter(
+        (result) => result.destinyMemberships.length > 0
+      );
+
+      validResults.map((result) => {
+        const { membershipId, membershipType } = result.destinyMemberships[0];
+      // console.log(validResults);
+
+        getLinkedProfile(membershipId, membershipType).then(
+          ({ Response: { profiles } }) => {
+            if (profiles.length > 0) {
               const sortedProfilesByDate = profiles.sort(
                 (a, b) => new Date(b.dateLastPlayed) - new Date(a.dateLastPlayed)
               );
   
-              const mostRecentProfile = sortedProfilesByDate[0];
+              // const mostRecentProfile = sortedProfilesByDate[0];
+              // const { membershipId, membershipType } = mostRecentProfile;
   
-              const { membershipId, membershipType, dateLastPlayed } =
-                mostRecentProfile;
-  
-              getProfileSearch(membershipId, membershipType)
-                .then(({ Response: { characters } }) => {
-                  const charactersArray = Object.values(characters.data)
-  
-                  // console.log(charactersArray);
-                  if (charactersArray.length > 1) {
-                    console.log(charactersArray
-                      .find((profile) => profile.dateLastPlayed === mostRecentProfile.dateLastPlayed));
-                  } 
-                  else { console.log(charactersArray[0]) }
-                }
-              );
+              console.log(profiles);
             }
-          );
-        }
+          }
+        );
       });
+
+      // .map((result) => {
+      //     console.log(result);
+
+      // const initialId = result.destinyMemberships[0].membershipId;
+      // const initialType = result.destinyMemberships[0].membershipType;
+
+      // getLinkedProfile(initialId, initialType).then(
+      //   ({ Response: { profiles } }) => {
+      //     const sortedProfilesByDate = profiles.sort(
+      //       (a, b) => new Date(b.dateLastPlayed) - new Date(a.dateLastPlayed)
+      //     );
+
+      //     const mostRecentProfile = sortedProfilesByDate[0];
+
+      //     const { membershipId, membershipType, dateLastPlayed } =
+      //       mostRecentProfile;
+
+      //     getProfileSearch(membershipId, membershipType)
+      //       .then(({ Response: { characters } }) => {
+      //         const charactersArray = Object.values(characters.data)
+
+      //         // console.log(charactersArray);
+      //         if (charactersArray.length > 1) {
+      //           console.log(charactersArray
+      //             .find((profile) => profile.dateLastPlayed === mostRecentProfile.dateLastPlayed));
+      //         }
+      //         else { console.log(charactersArray[0]) }
+      //       }
+      //     );
+      //   }
+      // );
+      // }
+      // });
     }
   }, [results]);
 
