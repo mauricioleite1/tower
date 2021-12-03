@@ -2,32 +2,34 @@
 @use '../base/colors' as c;
 
 .container {
-  @include size(180vh, 100%);
-  background-color: rgb(255, 255, 255);
+  @include size(100vh, 100vw);
+}
+
+.content {
+  @include flex(flex-start, space-between);
+  @include size(100vh, 100%);
+  // background-color: red;
+  margin: auto;
   overflow-x: hidden;
 }
 
-// .content {
-//   @include flex(center,space-between);
-//   @include size(180vh, 100%);
-//   padding-inline: 30px;
-//   // margin: auto;
-//   overflow-x: hidden;
-// }
-
 .left {
   @include flex(center, space-around);
-  @include size(92vh, 16rem);
-  
-  background-color: rgb(231, 231, 231);
+  @include size(100vh, 16rem);
+  background-color: rgb(230, 230, 230);
   flex-direction: column;
-  border-radius: 20px;
   position: fixed;
   gap: 10px;
   padding: 10px;
-  // margin: auto;
-  margin-left: 20px;
-  top: 60px;
+  margin-left: 100px;
+}
+
+.right {
+  @include flex;
+  @include size(auto, 80%);
+  min-height: 180vh;
+  // backdrop-filter: blur(25px);
+  flex-direction: column;
 }
 
 .profileInfo {
@@ -37,20 +39,13 @@
   gap: 20px;
 }
 
-.medals {
-  @include flex(center, flex-start);
-  @include size(auto, 80%);
-  // background: #000;
-  gap: 6px;
-}
-
 .info {
   text-align: left;
   width: 80%;
   h2 {
     font-family: Inter, Outfit, sans-serif;
     font-weight: 800;
-
+    font-size: 20px;
     ion-icon {
       position: absolute;
       font-size: 14px;
@@ -65,6 +60,8 @@
 
 .picture {
   @include size(60px,60px);
+
+  border: 1px solid red;
   border-radius: 50vw;
 }
 
