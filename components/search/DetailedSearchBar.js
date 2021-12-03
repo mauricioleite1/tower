@@ -3,7 +3,6 @@ import { languageSearch } from '../language';
 import { UserPreferences } from '../../context/user';
 import { useAppDispatch, useAppSelector } from '../../redux/app/hooks.ts';
 import Image from 'next/image';
-import Link from 'next/link';
 import Suggestion from './Suggestion';
 import styles from '../../styles/components/_detailedsearchbar.module.scss';
 
