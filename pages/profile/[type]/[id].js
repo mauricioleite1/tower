@@ -18,12 +18,10 @@ const Profile = () => {
         setProfile({ bnetMembership, info: Response })
       );
       getGroupsForMember(id, type).then(({ Response }) => {
-        console.log(Response);
         if (Response.results.length !== 0) {
           setProfileClan(Response.results[0].group);
         }
       });
-      // getGroupsForMember(id, type).then(({ Response }) => console.log(Response))
     });
   };
 
@@ -99,8 +97,20 @@ const Profile = () => {
           </div>
         </section>
 
+        <section className={styles.right}>
+              <nav>
+                <button type="button">All</button>
+                <button type="button">Pve</button>
+                <button type="button">Pvp</button>
 
-        {/* <section className={styles.right}></section> */}
+              </nav>
+
+              <div>
+                <div className={styles.infoCard}>
+                </div>
+              </div>
+
+        </section>
       {/* </div> */}
     </main>
   );

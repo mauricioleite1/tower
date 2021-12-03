@@ -8,7 +8,7 @@ import styles from '../../styles/components/_suggestion.module.scss';
 import Tag from '../base/Tag';
 import TimeAgo from 'timeago-react';
 
-const Suggestion = ({ result }) => {
+const Suggestion = ({ results }) => {
   const { bungieData, setBungieData } = useContext(BungieDataContext);
   const [showAdditionalInfo, setShowAdditionalInfo] = useState(false);
   const [showErrorMessage, setShowErrorMessage] = useState(false);
@@ -16,35 +16,34 @@ const Suggestion = ({ result }) => {
   const router = useRouter();
 
   const language = useAppSelector((state) => state.user.preferences.language);
-  const stringCode = String(result.bungieGlobalDisplayNameCode);
-  const { destinyMemberships } = result;
+  const stringCode = String(results.bungieGlobalDisplayNameCode);
+  const { destinyMemberships } = results;
 
   useEffect(() => {
-    if (result && result.destinyMemberships[0]) {
-      const initialId = result.destinyMemberships[0].membershipId;
-      const initialType = result.destinyMemberships[0].membershipType;
-      
-      getLinkedProfile(initialId, initialType).then(
-        ({ Response: { profiles } }) => {
-          const profilesList = profiles.sort(
-            (a, b) => new Date(b.dateLastPlayed) - new Date(a.dateLastPlayed)
-          );
-          const lastUsedProfile = profilesList[0];
-          const { membershipId, membershipType, dateLastPlayed } =
-            lastUsedProfile;
+    // console.log(result);
+    const initialId = results.destinyMemberships[0].membershipId;
+    const initialType = results.destinyMemberships[0].membershipType;
+    
+    getLinkedProfile(initialId, initialType).then(
+      ({ Response: { profiles } }) => {
+        const profilesList = profiles.sort(
+          (a, b) => new Date(b.dateLastPlayed) - new Date(a.dateLastPlayed)
+        );
+        const lastUsedProfile = profilesList[0];
+        const { membershipId, membershipType, dateLastPlayed } =
+          lastUsedProfile;
 
-          getProfile(membershipId, membershipType).then(({ Response }) =>
-            setSearchedUser({
-              general: Response,
-              lastPlayedCharacter: Object.values(Response.characters.data).find(
-                (a) => a.dateLastPlayed === dateLastPlayed
-              ),
-            })
-          );
-        }
-      );
-    }
-  }, [result]);
+        getProfile(membershipId, membershipType).then(({ Response }) =>
+          setSearchedUser({
+            general: Response,
+            lastPlayedCharacter: Object.values(Response.characters.data).find(
+              (a) => a.dateLastPlayed === dateLastPlayed
+            ),
+          })
+        );
+      }
+    );
+  }, [results]);
 
   const handleClick = async () => {
     const { membershipId, membershipType, dateLastPlayed } =

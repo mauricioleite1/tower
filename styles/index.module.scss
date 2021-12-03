@@ -6,7 +6,7 @@
 
 .hero {
   @include m.flex;
-  @include m.size(75vh, 100%);
+  @include m.size(100vh, 100%);
 
   background-image: linear-gradient(to bottom, rgba(245, 246, 252, 0), rgba(0, 0, 0, 0.2)), url('http://downloads.bungie.net/images/Wallpapers/S15/JB_Marathon_Hunter_TWAB_4K.jpg');
   background-size: cover;

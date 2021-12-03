@@ -26,6 +26,11 @@ export const searchByGlobalNamePrefix = async (displayNamePrefix, page = 0) => {
 //   return apiFetch(API_ENDPOINT);
 // }
 
+export const getProfileSearch = async (membershipId, membershipType = -1) => {
+  const API_ENDPOINT = `${API_BASE_URL}/Destiny2/${membershipType}/Profile/${membershipId}/?components=200`;
+  return bungieApiFetch(API_ENDPOINT);
+}
+
 export const getProfile = async (membershipId, membershipType = -1) => {
   const API_ENDPOINT = `${API_BASE_URL}/Destiny2/${membershipType}/Profile/${membershipId}/?components=100,102,103,104,105,200,201,202,203,204,205,800,900,1100`;
   return bungieApiFetch(API_ENDPOINT);

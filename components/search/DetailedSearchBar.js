@@ -7,25 +7,29 @@ import Link from 'next/link';
 import Suggestion from './Suggestion';
 import styles from '../../styles/components/_detailedsearchbar.module.scss';
 
-const DetailedSearchBar = ({ searchTerm, result }) => {
+const DetailedSearchBar = ({ searchTerm, results }) => {
   const language = useAppSelector((state) => state.user.preferences.language);
+
+  // console.log(result);
 
   return (
     <>
-      {searchTerm && result && (
+      {searchTerm && (
         <section className={styles.container}>
           <h6>All results for <span>{searchTerm}</span></h6>
 
           <div className={styles.search}>
-            {result && result.searchResults.length !== 0 ? (
+            {results && results.searchResults.length !== 0 ? (
+
               <div className={styles.searchList}>
-                {searchTerm &&
-                  result &&
-                  result.searchResults.map((result, key) => (
-                      <Suggestion key={key} result={result} />
+                { results &&
+                  results.searchResults.map((result, key) => (
+                      <Suggestion key={key} results={results} />
                   ))}
               </div>
+
             ) : (
+
               <div className={styles.notFoundImage}>
                 <Image
                   src="/images/ghost.jpg"
@@ -36,6 +40,7 @@ const DetailedSearchBar = ({ searchTerm, result }) => {
                 <h5>{languageSearch[language].cantfind}</h5>
                 <h5>{languageSearch[language].canyoutry}</h5>
               </div>
+              
             )}
           </div>
 
