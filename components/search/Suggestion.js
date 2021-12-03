@@ -20,29 +20,29 @@ const Suggestion = ({ results }) => {
   const { destinyMemberships } = results;
 
   useEffect(() => {
-    // console.log(result);
-    const initialId = results.destinyMemberships[0].membershipId;
-    const initialType = results.destinyMemberships[0].membershipType;
+    console.log(results);
+    // const initialId = results.destinyMemberships[0].membershipId;
+    // const initialType = results.destinyMemberships[0].membershipType;
     
-    getLinkedProfile(initialId, initialType).then(
-      ({ Response: { profiles } }) => {
-        const profilesList = profiles.sort(
-          (a, b) => new Date(b.dateLastPlayed) - new Date(a.dateLastPlayed)
-        );
-        const lastUsedProfile = profilesList[0];
-        const { membershipId, membershipType, dateLastPlayed } =
-          lastUsedProfile;
+    // getLinkedProfile(initialId, initialType).then(
+    //   ({ Response: { profiles } }) => {
+    //     const profilesList = profiles.sort(
+    //       (a, b) => new Date(b.dateLastPlayed) - new Date(a.dateLastPlayed)
+    //     );
+    //     const lastUsedProfile = profilesList[0];
+    //     const { membershipId, membershipType, dateLastPlayed } =
+    //       lastUsedProfile;
 
-        getProfile(membershipId, membershipType).then(({ Response }) =>
-          setSearchedUser({
-            general: Response,
-            lastPlayedCharacter: Object.values(Response.characters.data).find(
-              (a) => a.dateLastPlayed === dateLastPlayed
-            ),
-          })
-        );
-      }
-    );
+    //     getProfile(membershipId, membershipType).then(({ Response }) =>
+    //       setSearchedUser({
+    //         general: Response,
+    //         lastPlayedCharacter: Object.values(Response.characters.data).find(
+    //           (a) => a.dateLastPlayed === dateLastPlayed
+    //         ),
+    //       })
+    //     );
+    //   }
+    // );
   }, [results]);
 
   const handleClick = async () => {
@@ -57,6 +57,7 @@ const Suggestion = ({ results }) => {
 
   return (
     <>
+    hehe
       {searchedUser && searchedUser.general && (
         <div
           onClick={handleClick}

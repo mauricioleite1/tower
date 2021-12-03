@@ -20,7 +20,7 @@ const SearchBar = ({ showSuggestions, setShowSuggestions }) => {
   const language = useAppSelector((state) => state.user.preferences.language);
   const [showDetailedSearchBar, setShowDetailedSearchBar] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
-  const [searchedUser, setSearchedUser] = useState({});
+  const [validResults, setValidResults] = useState([]);
   const searchInput = useRef(null);
   const [loading, setLoading] = useState(false);
   // const { searchSuggestions, setSearchSuggestions } = useContext(SearchContext);
@@ -48,67 +48,40 @@ const SearchBar = ({ showSuggestions, setShowSuggestions }) => {
         (result) => result.destinyMemberships.length > 0
       );
 
-      validResults.map((result) => {
-        const { membershipId, membershipType } = result.destinyMemberships[0];
-      // console.log(validResults);
+      setValidResults(validResults)
+   
+        // getLinkedProfile(membershipId, membershipType).then(
+        //   ({ Response: { profiles } }) => {
+        //     if (profiles.length > 0) {
+        //       const sortedProfilesByDate = profiles.sort(
+        //         (a, b) =>
+        //           new Date(b.dateLastPlayed) - new Date(a.dateLastPlayed)
+        //       );
 
-        getLinkedProfile(membershipId, membershipType).then(
-          ({ Response: { profiles } }) => {
-            if (profiles.length > 0) {
-              const sortedProfilesByDate = profiles.sort(
-                (a, b) => new Date(b.dateLastPlayed) - new Date(a.dateLastPlayed)
-              );
-  
-              // const mostRecentProfile = sortedProfilesByDate[0];
-              // const { membershipId, membershipType } = mostRecentProfile;
-  
-              console.log(profiles);
-            }
-          }
-        );
-      });
+        //       const mostRecentProfile = sortedProfilesByDate[0];
+        //       const { membershipId, membershipType } = mostRecentProfile;
 
-      // .map((result) => {
-      //     console.log(result);
+        //       getProfileSearch(membershipId, membershipType).then(
+        //         ({ Response: { characters } }) => {
+        //           const charactersArray = Object.values(characters.data);
+        //           const validProfile = charactersArray.find(
+        //             (profile) =>
+        //               profile.dateLastPlayed ===
+        //               mostRecentProfile.dateLastPlayed
+        //           );
 
-      // const initialId = result.destinyMemberships[0].membershipId;
-      // const initialType = result.destinyMemberships[0].membershipType;
-
-      // getLinkedProfile(initialId, initialType).then(
-      //   ({ Response: { profiles } }) => {
-      //     const sortedProfilesByDate = profiles.sort(
-      //       (a, b) => new Date(b.dateLastPlayed) - new Date(a.dateLastPlayed)
-      //     );
-
-      //     const mostRecentProfile = sortedProfilesByDate[0];
-
-      //     const { membershipId, membershipType, dateLastPlayed } =
-      //       mostRecentProfile;
-
-      //     getProfileSearch(membershipId, membershipType)
-      //       .then(({ Response: { characters } }) => {
-      //         const charactersArray = Object.values(characters.data)
-
-      //         // console.log(charactersArray);
-      //         if (charactersArray.length > 1) {
-      //           console.log(charactersArray
-      //             .find((profile) => profile.dateLastPlayed === mostRecentProfile.dateLastPlayed));
-      //         }
-      //         else { console.log(charactersArray[0]) }
-      //       }
-      //     );
-      //   }
-      // );
-      // }
+        //         }
+        //       );
+        //     }
+        //   }
+        // );
       // });
     }
   }, [results]);
 
   return (
     <div className={styles.container}>
-      {/* {results && (
-        <DetailedSearchBar searchTerm={searchTerm} results={results} />
-      )} */}
+      <DetailedSearchBar searchTerm={searchTerm} results={validResults} />
 
       <div className="hero-searchbar__inputnav">
         <input
