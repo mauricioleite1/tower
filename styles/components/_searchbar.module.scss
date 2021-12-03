@@ -3,17 +3,17 @@
 
 .container {
   @include flex(center, space-between);
-  @include size(80px, 600px);
+  @include size(86px, 600px);
   backdrop-filter: blur(12px);
   background: rgb(255, 255, 255);
   border-left: 1px solid rgb(200, 200, 200);
   border-radius: 50vh;
   border-top: 1px solid rgb(200, 200, 200);
-  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 13px, rgba(0, 0, 0, 0.24) 0px 1px 12px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 4px 4px;
   flex-flow: row wrap;
   margin: auto;
-  margin-top: -100px;
-  padding-inline: 10px;
+  margin-top: -780px;
+  padding-inline: 16px;
   position: relative;
   z-index: 1;
 

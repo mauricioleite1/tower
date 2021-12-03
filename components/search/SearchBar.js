@@ -15,19 +15,11 @@ import styles from '../../styles/components/_searchbar.module.scss';
 import DetailedSearchBar from './DetailedSearchBar';
 import LoadingDetailedSearchBar from './loadingState/LoadingDetailedSearchBar';
 
-
-// import { PlayerContext, SearchContext } from '../../context';
-// import SuggestionsList from './SuggestionList';
-
 const SearchBar = ({ showSuggestions, setShowSuggestions }) => {
   const language = useAppSelector((state) => state.user.preferences.language);
   const [showDetailedSearchBar, setShowDetailedSearchBar] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const searchInput = useRef(null);
-  const [bungieManifest, setBungieManifest] = useState(null);
-  const [loading, setLoading] = useState(false);
-  // const { searchSuggestions, setSearchSuggestions } = useContext(SearchContext);
-  const { player, setPlayer } = useContext(PlayerContext);
   const [result, setResult] = useState(null);
 
   useEffect(() => searchInput.current.focus(), []);
@@ -36,10 +28,12 @@ const SearchBar = ({ showSuggestions, setShowSuggestions }) => {
     if (searchTerm) {
       const delayedSearch = setTimeout(() => {
         searchByGlobalNamePrefix(searchTerm).then(({ Response }) => {
-          setResult(Response);
+          // console.log(Response);
+          const validProfiles = Response.searchResults.filter((result) => result.destinyMemberships.length > 0);
+          setResult(validProfiles);
           setShowDetailedSearchBar(true);
         });
-      }, 500);
+      }, 300);
 
       return () => clearTimeout(delayedSearch);
     }
@@ -48,12 +42,7 @@ const SearchBar = ({ showSuggestions, setShowSuggestions }) => {
   return (
     <>
       <div className={styles.container}>
-        { showDetailedSearchBar && (
-          <DetailedSearchBar
-            searchTerm={searchTerm}
-            result={result}
-          />
-        ) }
+        
         {/* <Link to="/crucible"> */}
         <div className="hero-searchbar__inputnav">
           <input
@@ -77,7 +66,14 @@ const SearchBar = ({ showSuggestions, setShowSuggestions }) => {
         </div>
 
         <ion-icon className={styles.searchButton} name="search-outline" />
+        { showDetailedSearchBar && (
+          <DetailedSearchBar
+            searchTerm={searchTerm}
+            result={result}
+          />
+        ) }
       </div>
+      
       {/* { showSuggestions && searchSuggestions && <SuggestionsList bungieManifest={ bungieManifest } /> } */}
     </>
   );

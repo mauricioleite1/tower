@@ -8,6 +8,7 @@ import styles from '../../styles/components/_detailedsearchbar.module.scss';
 
 const DetailedSearchBar = ({ searchTerm, result }) => {
   const language = useAppSelector((state) => state.user.preferences.language);
+  console.log(result)
 
   return (
     <>
@@ -15,12 +16,13 @@ const DetailedSearchBar = ({ searchTerm, result }) => {
         <section className={styles.container}>
           <h6>All results for <span>{searchTerm}</span></h6>
 
+
           <div className={styles.search}>
-            {result && result.searchResults.length !== 0 ? (
+            {result ? (
               <div className={styles.searchList}>
                 {searchTerm &&
                   result &&
-                  result.searchResults.map((result, key) => (
+                  result.map((result, key) => (
                       <Suggestion key={key} result={result} />
                   ))}
               </div>

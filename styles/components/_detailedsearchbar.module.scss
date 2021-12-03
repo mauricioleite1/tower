@@ -13,13 +13,13 @@
   
   background: rgb(255, 255, 255);
   border-radius: 18px;
-  bottom: 6.5rem;
-  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 13px, rgba(0, 0, 0, 0.24) 0px 1px 12px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 4px 4px;
   flex-direction: column;
   left: 3%;
   max-height: 400px;
   padding-bottom: 10px;
   position: absolute;
+  top: 91px;
 
   ion-icon[ id="platform"] { 
     @include transition;

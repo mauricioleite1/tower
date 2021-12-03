@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useRouter } from 'next/router';
 import { getProfile, getLinkedProfile, getGroupsForMember } from '../../../api';
 import styles from '../../../styles/pages/_profile.module.scss';
 import Image from 'next/image';
+import { BungieDataContext } from '../../../context/bungieData';
 
 const Profile = () => {
+  const { bungieData } = useContext(BungieDataContext);
   const [profile, setProfile] = useState({});
   const [profileClan, setProfileClan] = useState(null);
   const router = useRouter();
@@ -17,7 +19,6 @@ const Profile = () => {
         setProfile({ bnetMembership, info: Response })
       );
       getGroupsForMember(id, type).then(({ Response }) => {
-        console.log(Response);
         if (Response.results.length !== 0) {
           setProfileClan(Response.results[0].group);
         }
@@ -39,8 +40,8 @@ const Profile = () => {
             {profile && bnetMembership && (
               <Image
                 className={styles.picture}
-                src={ `https://www.bungie.net${bnetMembership.iconPath}` }
-                alt="Avatar from Bungie.net" 
+                src={`https://www.bungie.net${bnetMembership.iconPath}`}
+                alt="Avatar from Bungie.net"
                 height="100%"
                 width="100%"
               />
@@ -66,6 +67,7 @@ const Profile = () => {
             {profile &&
               info &&
               Object.values(info.characters.data).map((a, key) => {
+                console.log(a);
                 return (
                   <div
                     className={styles.character}
@@ -80,7 +82,13 @@ const Profile = () => {
                       height="60px"
                       width="60px"
                     /> */}
-                    <h4>{a.characterId}</h4>
+                    <div>
+                      <h3>
+                        { bungieData.classDefinition[a.classHash]
+                            .displayProperties.name }
+                      </h3>
+                      <h3>{a.light}</h3>
+                    </div>
                   </div>
                 );
               })}
