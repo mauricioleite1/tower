@@ -12,14 +12,14 @@
   box-shadow: rgba(0, 0, 0, 0.24) 0px 4px 4px;
   flex-flow: row wrap;
   margin: auto;
-  margin-top: -780px;
+  margin-top: -770px;
   padding-inline: 16px;
   position: relative;
   z-index: 1;
 
   ion-icon { 
     @include transition;
-    background: linear-gradient(45deg, c.$ac-main, rgb(82, 99, 255));
+    background: linear-gradient(45deg, c.$ac-main, rgb(18, 42, 255));
     border-radius: 50%;
     color: white;
     cursor: pointer;

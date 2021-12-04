@@ -35,3 +35,19 @@ a {
   background-color: c.$ac-main;
   color: white;
 }
+
+::-webkit-scrollbar {
+  background-color: blue;
+  width: 8px;
+}
+
+;;::-webkit-scrollbar-track {
+  background-color: rgb(255, 255, 255);
+}
+
+::-webkit-scrollbar-thumb {
+  border: 1px solid rgb(255, 255, 255);
+  background: rgb(211, 211, 211);
+  width: 2px;
+  border-radius: 8px;
+}

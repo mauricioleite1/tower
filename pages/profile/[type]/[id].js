@@ -64,11 +64,9 @@ const Profile = () => {
           </div>
 
           <div className={styles.characters__container}>
-            {profile &&
+            { profile &&
               info &&
-              Object.values(info.characters.data).map((a, key) => {
-                console.log(a);
-                return (
+              Object.values(info.characters.data).map((a, key) => (
                   <div
                     className={styles.character}
                     key={key}
@@ -90,8 +88,7 @@ const Profile = () => {
                       <h3>{a.light}</h3>
                     </div>
                   </div>
-                );
-              })}
+              )) }
           </div>
         </section>
 
