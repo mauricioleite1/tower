@@ -13,7 +13,6 @@ import { UserPreferences } from '../../context/user';
 import { PlayerContext } from '../../context/player';
 import styles from '../../styles/components/_searchbar.module.scss';
 import DetailedSearchBar from './DetailedSearchBar';
-import LoadingDetailedSearchBar from './loadingState/LoadingDetailedSearchBar';
 
 const SearchBar = ({ showSuggestions, setShowSuggestions }) => {
   const language = useAppSelector((state) => state.user.preferences.language);
@@ -51,21 +50,23 @@ const SearchBar = ({ showSuggestions, setShowSuggestions }) => {
             placeholder={commonText.search[language]}
             id="searchInput"
             onChange={({ target: { value } }) => setSearchTerm(value)}
-            onClick={() => setShowDetailedSearchBar(!showDetailedSearchBar)}
+            onC 
+            
+            lick={() => setShowDetailedSearchBar(!showDetailedSearchBar)}
             // onKeyUp={searchOnKey}
             autoComplete="off"
           />
 
           <nav>
-            {searchBarNavOptions[language].map(({ href, title }, key) => (
+            {searchBarNavOptions[language].map(({ href, title, id }, key) => (
               <Link key={key} href={href} passHref={true}>
-                <h4>{title}</h4>
+                <h4 id={id}>{title}</h4>
               </Link>
             ))}
           </nav>
         </div>
 
-        <ion-icon className={styles.searchButton} name="search-outline" />
+        {/* <ion-icon className={styles.searchButton} name="search-outline" /> */}
         { showDetailedSearchBar && (
           <DetailedSearchBar
             searchTerm={searchTerm}

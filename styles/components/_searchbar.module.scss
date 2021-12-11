@@ -3,8 +3,8 @@
 
 .container {
   @include flex(center, space-between);
-  @include size(86px, 600px);
-  backdrop-filter: blur(12px);
+  @include size(82px, 680px);
+  backdrop-filter: blur(5px);
   background: rgb(255, 255, 255);
   border-left: 1px solid rgb(200, 200, 200);
   border-radius: 50vh;
@@ -12,21 +12,22 @@
   box-shadow: rgba(0, 0, 0, 0.24) 0px 4px 4px;
   flex-flow: row wrap;
   margin: auto;
-  margin-top: -770px;
-  padding-inline: 16px;
+  margin-top: -740px;
+  padding-inline: 8px;
   position: relative;
   z-index: 1;
 
   ion-icon { 
     @include transition;
-    background: linear-gradient(45deg, c.$ac-main, rgb(18, 42, 255));
+    // background: linear-gradient(45deg, c.$ac-main, rgb(18, 42, 255));
     border-radius: 50%;
-    color: white;
+    color: black;
     cursor: pointer;
     font-size: 20px;
     padding: 16px;
     &:hover {
-      opacity: 0.95;
+    color: #6667ab;
+
     }
   }
 
@@ -35,50 +36,71 @@
     @include transition(0.6s);
     background: transparent;
     border: none;
-    border-bottom: 1px solid rgb(236, 236, 236);
+    border-bottom: 1px solid rgb(255, 255, 255);
+    // margin-bottom: 4px;
     font-family: Sofia Pro, Poppins, Inter, sans-serif;
     font-size: 16px;
     letter-spacing: 0.1em;
+    // color: white;
     font-weight: 600;
     outline: none;
-    padding-left: 20px;
     text-align: center;
 
     &::placeholder {
-      color: rgb(177, 177, 177);
+      color: rgb(82, 82, 82);
       opacity: 0.7;
-      font-weight: 200;
+      font-weight: 400;
     }
   }
   nav {
     @include flex;
     @include size(50%);
+    padding-bottom: 10px;
+    gap: 10px;
 
     h4 {
       @include flex;
-      @include size(100%);
+      @include size(100%, 20%);
       @include transition;
-      // border-radius: 50vh;
-      // border-bottom: 3px solid transparent;
-      color: rgb(10, 10, 10);
+      border-radius: 20px;
+      border: 1px solid transparent; 
+      // background: #000;
+
+      color: rgb(156, 156, 156);
       cursor: pointer;
       font-size: 11px;
       font-weight: 400;
       letter-spacing: 0.05rem;
+      padding: 4px;
       
-      &:hover {
-        opacity: 0.6;
-      }
       &:last-child {
         border-right: none;
+      }      
+    }
+    h4[id = "vanguard"] {
+      &:hover {
+        border: 1px solid rgb(167, 208, 255);        
       }
     }
-
+    h4[id = "crucible"] {
+      &:hover {
+        border: 1px solid  rgb(255, 189, 190);
+      }
+    }
+    h4[id = "trials"] {
+      &:hover {
+        border: 1px solid rgb(255, 222, 89);
+      }
+    }
+    h4[id = "gambit"] {
+      &:hover {
+        border: 1px solid rgba(160, 255, 184, 0.89);
+      }
+    }
   }
 }
 
 .hero-searchbar__inputnav {
-  @include size(80%, 86%);
-
-  padding-left: 20px;
+  @include size(100%, 90%);
+  margin: auto;
 }
