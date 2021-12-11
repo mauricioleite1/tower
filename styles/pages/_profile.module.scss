@@ -1,0 +1,134 @@
+@use '../base/mixins' as *;
+@use '../base/colors' as c;
+
+.container {
+  @include size(100vh, 100vw);
+}
+
+.content {
+  @include flex(flex-start, space-between);
+  @include size(100vh);
+  // background-color: red;
+  margin: auto;
+  overflow-x: hidden;
+}
+
+.left {
+  @include flex(center, space-around);
+  @include size(100vh, 14rem);
+  background-color: rgb(230, 230, 230);
+  flex-direction: column;
+  position: fixed;
+  gap: 10px;
+  padding: 10px;
+  margin-left: 50px;
+}
+
+.right {
+  @include flex;
+  @include size(auto, 80%);
+  min-height: 180vh;
+  // backdrop-filter: blur(25px);
+  flex-direction: column;
+}
+
+.profileInfo {
+  @include flex;
+  @include size;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.info {
+  text-align: left;
+  width: 80%;
+  h2 {
+    font-family: Inter, Outfit, sans-serif;
+    font-weight: 800;
+    font-size: 20px;
+    ion-icon {
+      position: absolute;
+      font-size: 14px;
+      color: rgb(0, 71, 163);
+    }
+  }
+  h6 {
+    font-weight: 200 !important;
+    font-size: 12px;
+    letter-spacing: 0.03rem;
+  }
+}
+
+.picture {
+  @include size(100px, 100px);
+  border-radius: 50vw;
+}
+
+.interaction {
+  @include flex;
+  @include size;
+  // flex-direction: column;
+  gap: 6px;
+  // padding-inline: 20px;
+
+  h4 {
+    @include flex;
+    font-family: Inter, sans-serif;
+    gap: 10px;
+    cursor: pointer;
+  }
+
+  ion-icon {
+    @include transition;
+    background-color: rgb(255, 255, 255);
+    color: rgb(82, 82, 82);
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 50%;
+
+    &:hover {
+      opacity: 0.6;
+    }
+  }
+}
+
+.characters__container {
+  @include flex;
+  @include size;
+  flex-direction: column;
+  gap: 4px;
+
+  h3 {
+    color: white;
+    font-family: Inter, Outfit, sans-serif;
+    font-weight: normal;
+    &:last-child {
+      color: c.$light-level;
+      font-weight: 800;
+    }
+  }
+}
+
+.character {
+  @include flex;
+  @include size(65px);
+  background-size: cover;
+  cursor: pointer;
+  border-radius: 2px;
+
+  div {
+    @include flex(center, space-between);
+    @include size(auto, 67%);
+    margin-left: auto;
+    margin-right: 6px;
+  }
+
+  img {
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+  }
+  h4 {
+    // margin-left: 50px;
+    color: white;
+  }
+}

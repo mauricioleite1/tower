@@ -8,96 +8,41 @@ import {
 } from '../../api';
 
 import { searchBarNavOptions, commonText } from '../language';
+import { useAppDispatch, useAppSelector } from '../../redux/app/hooks.ts';
 import { UserPreferences } from '../../context/user';
 import { PlayerContext } from '../../context/player';
 import styles from '../../styles/components/_searchbar.module.scss';
 import DetailedSearchBar from './DetailedSearchBar';
 import LoadingDetailedSearchBar from './loadingState/LoadingDetailedSearchBar';
 
-
-// import { PlayerContext, SearchContext } from '../../context';
-// import SuggestionsList from './SuggestionList';
-
 const SearchBar = ({ showSuggestions, setShowSuggestions }) => {
+  const language = useAppSelector((state) => state.user.preferences.language);
   const [showDetailedSearchBar, setShowDetailedSearchBar] = useState(false);
-  const [searchTerm, setSearchTerm] = useState(null);
+  const [searchTerm, setSearchTerm] = useState('');
   const searchInput = useRef(null);
-  const { language } = useContext(UserPreferences);
-  const [bungieManifest, setBungieManifest] = useState(null);
-  const [loading, setLoading] = useState(false);
-  // const { searchSuggestions, setSearchSuggestions } = useContext(SearchContext);
-  const { player, setPlayer } = useContext(PlayerContext);
   const [result, setResult] = useState(null);
 
   useEffect(() => searchInput.current.focus(), []);
 
-  useEffect(
-    () =>
-      getManifest().then(async ({ Response }) =>
-        setBungieManifest(Response.jsonWorldComponentContentPaths)
-      ),
-    []
-  );
-
   useEffect(() => {
     if (searchTerm) {
-      const delayDebounceFn = setTimeout(() => {
+      const delayedSearch = setTimeout(() => {
         searchByGlobalNamePrefix(searchTerm).then(({ Response }) => {
+          // console.log(Response);
+          const validProfiles = Response.searchResults.filter((result) => result.destinyMemberships.length > 0);
+          setResult(validProfiles);
           setShowDetailedSearchBar(true);
-          setResult(Response);
         });
-      }, 700);
+      }, 300);
 
-      return () => clearTimeout(delayDebounceFn);
+      return () => clearTimeout(delayedSearch);
     }
   }, [searchTerm]);
-
-  // const searchOnKey = async ({ key }) => {
-  //   if (key === 'Enter') {
-  //     searchDestinyPlayer(searchTerm.replace(/#|_|-|&/g, '%23')).then((a) => setTest(a))
-  //   }
-  // }
-
-  // const handleKeyUp = async ({ key }) => {
-  //   if (key === 'Enter') {
-  //     searchDestinyPlayer(searchTerm.replace(/#|_|-|&/g, '%23'))
-  //       .then(({ Response }) => {
-  //         getProfile(Response[0].membershipId, Response[0].membershipType, Response)
-  //         .then(async ({ Response }) => {
-  //           const response = await fetch(`https://www.bungie.net${bungieManifest.Response.jsonWorldComponentContentPaths.en.DestinyClassDefinition}`);
-  //           const response1 = await fetch(`https://www.bungie.net${bungieManifest.Response.jsonWorldComponentContentPaths.en.DestinyPresentationNodeDefinition}`);
-  //           const response2 = await fetch(`https://www.bungie.net${bungieManifest.Response.jsonWorldComponentContentPaths.en.DestinyRecordDefinition}`);
-  //           const responseActivity = await fetch(`https://www.bungie.net${bungieManifest.Response.jsonWorldComponentContentPaths.en.DestinyActivityDefinition}`);
-  //           const responseActivityMode = await fetch(`https://www.bungie.net${bungieManifest.Response.jsonWorldComponentContentPaths.en.DestinyActivityModeDefinition}`);
-  //           const responseInventoryItem = await fetch(`https://www.bungie.net${bungieManifest.Response.jsonWorldComponentContentPaths.en.DestinyInventoryItemDefinition}`);
-  //           const responseStatDefinition = await fetch(`https://www.bungie.net${bungieManifest.Response.jsonWorldComponentContentPaths.en.DestinyStatDefinition}`);
-  //           const responseProgDefinition = await fetch(`https://www.bungie.net${bungieManifest.Response.jsonWorldComponentContentPaths.en.DestinyProgressionDefinition}`);
-
-  //           setPlayerData({
-  //             ...Response,
-  //             classes: await response.json(),
-  //             presentation: await response1.json(),
-  //             progression: await responseProgDefinition.json(),
-  //             record: Object.values(await response2.json()),
-  //             activity: await responseActivity.json(),
-  //             activityModeDefinition: await responseActivityMode.json(),
-  //             inventoryItems: await responseInventoryItem.json(),
-  //             statDefinition: await responseStatDefinition.json(),
-  //           })
-  //         })
-  //     })
-  //   }
-  // };
 
   return (
     <>
       <div className={styles.container}>
-        { showDetailedSearchBar && (
-          <DetailedSearchBar
-            searchTerm={searchTerm}
-            result={result}
-          />
-        ) }
+        
         {/* <Link to="/crucible"> */}
         <div className="hero-searchbar__inputnav">
           <input
@@ -120,8 +65,15 @@ const SearchBar = ({ showSuggestions, setShowSuggestions }) => {
           </nav>
         </div>
 
-        <ion-icon name="search-outline" />
+        <ion-icon className={styles.searchButton} name="search-outline" />
+        { showDetailedSearchBar && (
+          <DetailedSearchBar
+            searchTerm={searchTerm}
+            result={result}
+          />
+        ) }
       </div>
+      
       {/* { showSuggestions && searchSuggestions && <SuggestionsList bungieManifest={ bungieManifest } /> } */}
     </>
   );

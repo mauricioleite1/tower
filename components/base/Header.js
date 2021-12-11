@@ -7,6 +7,9 @@ import { commonText } from '../language';
 // import { Avatar } from '@material-ui/core';
 import SearchBar from '../search/SearchBar';
 import styles from '../../styles/components/_header.module.scss';
+import { useAppSelector, useAppDispatch } from '../../redux/app/hooks.ts';
+import { selectedLanguage } from '../../redux/userSlice';
+
 
 const Header = ({
   setShowLogin,
@@ -17,8 +20,11 @@ const Header = ({
   // showSuggestions,
   // setShowSuggestions,
 }) => {
-  const [bungieManifest, setBungieManifest] = useState(null);
-  const { language, setLanguage } = useContext(UserPreferences);
+  const dispatch = useAppDispatch();
+  const loginInfo = useAppSelector((state) => state.user.info);
+  const language = useAppSelector((state) => state.user.preferences.language);
+
+  // const { language, setLanguage } = useContext(UserPreferences);
   // const [language, setLanguage] = useState('en');
   // const location = useLocation();
 
@@ -42,7 +48,7 @@ const Header = ({
             <ul>
               <li
                 onClick={() => {
-                  setLanguage('en');
+                  dispatch(selectedLanguage('en'));
                   setShowLanguageOptions(false);
                 }}
               >
@@ -56,7 +62,7 @@ const Header = ({
               </li>
               <li
                 onClick={() => {
-                  setLanguage('de');
+                  dispatch(selectedLanguage('de'));
                   setShowLanguageOptions(false);
                 }}
               >
@@ -70,7 +76,7 @@ const Header = ({
               </li>
               <li
                 onClick={() => {
-                  setLanguage('ptBR');
+                  dispatch(selectedLanguage('pt-br'));
                   setShowLanguageOptions(false);
                 }}
               >
@@ -84,30 +90,18 @@ const Header = ({
               </li>
             </ul>
           )}
-
-          <ion-icon
-            name="globe-outline"
-            onClick={() => setShowLanguageOptions(!showLanguageOptions)}
-          />
+          <div onClick={() => setShowLanguageOptions(!showLanguageOptions)}>
+            <ion-icon name="globe-outline" />
+          </div>
         </div>
-        {/* <SearchBar
-          bungieManifest={bungieManifest}
-          setShowSuggestions={setShowSuggestions}
-          showSuggestions={showSuggestions}
-        /> */}
+
         <button onClick={() => setShowLogin(true)}>
-          {commonText.login[language]}
+          { !loginInfo.displayName ? commonText.login[language] : loginInfo.displayName }
         </button>
-        {/* <Avatar /> */}
+
+        { loginInfo.photoURL && <Image className={styles.profileImg} src={ loginInfo.photoURL } alt="User photo" height="24px" width="24px" /> }
       </div>
 
-      {/* <select name="language" id="language">
-          <option value="en">English</option>
-          <option value="de">Deutsch</option>
-          <option value="pt-br">Português(BR)</option>
-          <option value="es">Español</option>
-          <option value="es-mx">Español (MX)</option>
-        </select> */}
     </header>
   );
 };

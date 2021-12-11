@@ -1,0 +1,6 @@
+@use '../base/mixins' as *;
+
+.container {
+  @include flex;
+  @include size(60px, 120px);
+}
