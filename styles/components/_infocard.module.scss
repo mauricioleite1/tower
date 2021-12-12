@@ -2,15 +2,22 @@
 
 .container {
   @include flex(center, flex-start);
-  @include size(60px, 145px);
-  // flex-direction: column;
-  background: transparent;
-  border-bottom: 1px solid rgb(185, 185, 185);
+  @include size(3.6rem, auto);
+  @include transition;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-top: 3px solid white;
+  // border-radius: 2px;
   color: white;
-  // border-radius: 20px;
+  cursor: default;
   font-family: Inter, Poppins, sans-serif;
-  padding: 10px;
   gap: 6px;
+  padding: 10px;
+  min-width: 7rem;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.05);
+  }
 
   div {
     @include flex(flex-start);
@@ -26,6 +33,7 @@
     font-weight: 100;
   }
   img {
-    @include size(24px, 24px);
+    @include size(26px, 26px);
   }
 }
+

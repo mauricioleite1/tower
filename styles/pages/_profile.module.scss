@@ -22,7 +22,7 @@
   @include size(36rem, 13rem);
   background-color: rgba(230, 230, 230, 0.281);
   backdrop-filter: blur(10px);
-  border-radius: 20px;
+  border-radius: 18px;
   flex-direction: column;
   color: white;
   margin-block: 70px;
@@ -33,10 +33,10 @@
 .right {
   @include flex(flex-start, flex-start);
   @include size(auto, 70%);
-  background-color: rgba(230, 230, 230, 0.281);
+  background-color: rgba(230, 230, 230, 0.2);
   backdrop-filter: blur(10px);
   // border-top: 1px solid white;
-  border-radius: 20px;
+  border-radius: 18px;
   margin-block: 70px;
   min-height: 86vh;
   // margin-left: 190px;  
@@ -76,7 +76,7 @@
   width: 100%;
   h2 {
     font-family: Inter, Outfit, sans-serif;
-    font-weight: 800;
+    font-weight: 600;
     font-size: 20px;
     ion-icon {
       position: absolute;
@@ -85,8 +85,8 @@
     }
   }
   h6 {
-    font-weight: 200 !important;
-    font-size: 12px;
+    font-weight: 100 !important;
+    font-size: 11px;
     letter-spacing: 0.03rem;
   }
 }
@@ -150,8 +150,8 @@
   opacity: 0.8;
   
   &:last-child {
-    border-bottom-left-radius: 20px;
-    border-bottom-right-radius: 20px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
   }
 
   &:hover {
@@ -172,5 +172,27 @@
   h4 {
     // margin-left: 50px;
     color: white;
+  }
+}
+
+.trials_container, .crucible_container {
+  @include flex(center, flex-start);
+  @include size;
+  gap: 6px;
+  padding: 6px;
+}
+
+.weaponsKillsList {
+  display: flex;
+  // width: 40%;
+  gap: 20px;
+  flex-flow: row wrap;
+  h5 {
+    @include flex;
+    width: 100px;
+    // background: #000;
+    color: white;
+    font-weight: 100;
+    font-family: Inter, Outfit, sans-serif;
   }
 }
