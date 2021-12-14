@@ -16,6 +16,8 @@ const Profile = () => {
   const { id, type } = router.query;
   const { info, bnetMembership } = profile;
 
+  const [expandWeaponsList, setExpandWeaponsList] = useState(false);
+
   const fetchProfileInfo = async () => {
     getLinkedProfile(id, type).then(({ Response: { bnetMembership } }) => {
       getProfile(id, type).then(({ Response }) =>
@@ -39,17 +41,17 @@ const Profile = () => {
 
   return (
     <main className={styles.container}>
-
       <div className={styles.content}>
-        <section className={styles.left}>
+
+        <div className={styles.sidebar}>
           <div className={styles.profileInfo}>
             {profile && bnetMembership && (
               <Image
+                alt="Avatar from Bungie.net"
                 className={styles.picture}
                 src={`https://www.bungie.net${bnetMembership.iconPath}`}
-                alt="Avatar from Bungie.net"
-                height="140%"
-                width="140%"
+                height={120}
+                width={120}
               />
             )}
             <div className={styles.info}>
@@ -67,36 +69,45 @@ const Profile = () => {
               <ion-icon name="logo-twitter" />
               <ion-icon name="logo-instagram" />
             </div>
-          </div>
 
-          <div className={styles.characters__container}>
-            {profile &&
-              info &&
-              Object.values(info.characters.data).map((a, key) => (
-                <div
-                  className={styles.character}
-                  key={key}
-                  style={{
-                    backgroundImage: `url(https://www.bungie.net${a.emblemBackgroundPath})`,
-                  }}
-                >
-                  <div>
-                    <h3>
-                      {bungieData.classDefinition[a.classHash]
-                        .displayProperties.name}
-                    </h3>
-                    <h3>{a.light}</h3>
-                  </div>
-                </div>
-              ))}
-          </div>
-        </section>
+            <div className={styles.characters__container}>
+              {profile &&
+                info &&
+                Object.values(info.characters.data).map(({ emblemBackgroundPath, classHash, light }, key) => {
+                  return (
+                    <div
+                      className={styles.character}
+                      key={key}
+                      style={{
+                        backgroundImage: `url(https://www.bungie.net${emblemBackgroundPath})`,
+                      }}
+                    >
+                      <div>
+                        <h3>
+                          {bungieData.classDefinition[classHash].displayProperties.name}
+                        </h3>
+                        <h3>{light}</h3>
+                      </div>
+                    </div>
+                  )
+                })}
+            </div>
 
+          </div>
+        </div>
         <section className={styles.right}>
-          {/* <div className={styles.medals__container}>
-            <h4>Pvp-Main</h4>
-            <h4>Flawless</h4>
-            <h4><ion-icon name="skull" />Destroyer x3</h4>            
+          {/* <div className={styles.main_profile}>
+            <div className={styles.main_header}>Header</div>
+
+            <div>
+              <h5>About</h5>
+              <h2>Pvp main</h2>
+            </div>
+
+            <div className="medals">
+              <h4><ion-icon name="skull" />Destroyer x3</h4>            
+
+            </div>
           </div> */}
 
           <div className={styles.trials_container}>
@@ -154,7 +165,8 @@ const Profile = () => {
           </div>
 
           {profile && profile.info && historicalInfo && (
-            <div className={styles.weaponsKillsList}>
+            <div style={{ height: expandWeaponsList && 'auto' }} className={styles.weaponsKillsList}>
+              <ion-icon name={expandWeaponsList ? 'chevron-up-outline' : 'chevron-down-outline'} onClick={() => setExpandWeaponsList(!expandWeaponsList)} />
               <h5><WeaponSvg type="Hand Cannon" /> {historicalInfo.mergedAllCharacters.results.allPvP.allTime.weaponKillsHandCannon.basic.value.toLocaleString()}</h5>
               <h5><WeaponSvg type="Shotgun" /> {historicalInfo.mergedAllCharacters.results.allPvP.allTime.weaponKillsShotgun.basic.value.toLocaleString()}</h5>
               <h5><WeaponSvg type="Sniper" />  {historicalInfo.mergedAllCharacters.results.allPvP.allTime.weaponKillsSniper.basic.value.toLocaleString()}</h5>
@@ -170,7 +182,6 @@ const Profile = () => {
               <h5><WeaponSvg type="Pulse Rifle" /> {historicalInfo.mergedAllCharacters.results.allPvP.allTime.weaponKillsPulseRifle.basic.value.toLocaleString()}</h5>
               <h5><WeaponSvg type="Scout Rifle" />  {historicalInfo.mergedAllCharacters.results.allPvP.allTime.weaponKillsScoutRifle.basic.value.toLocaleString()}</h5>
               <h5><WeaponSvg type="Bow" /> {historicalInfo.mergedAllCharacters.results.allPvP.allTime.weaponKillsBow.basic.value.toLocaleString()}</h5>
-            
 
             </div>
           )}

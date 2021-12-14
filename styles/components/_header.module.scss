@@ -2,8 +2,8 @@
 
 .header {
   @include flex(center, space-between);
-  @include size(50px);
-  background-color: rgba(0, 0, 0, 0.5);
+  @include size(40px);
+  background-color: rgba(0, 0, 0, 0.39);
   backdrop-filter: blur(25px);
   padding-inline: 20px;
   position: fixed;
