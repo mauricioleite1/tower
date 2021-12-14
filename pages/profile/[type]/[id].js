@@ -45,29 +45,29 @@ const Profile = () => {
 
         <div className={styles.sidebar}>
           <div className={styles.profileInfo}>
-            {profile && bnetMembership && (
-              <Image
-                alt="Avatar from Bungie.net"
-                className={styles.picture}
-                src={`https://www.bungie.net${bnetMembership.iconPath}`}
-                height={120}
-                width={120}
-              />
-            )}
             <div className={styles.info}>
+              {profile && bnetMembership && (
+                <Image
+                  alt="Avatar from Bungie.net"
+                  className={styles.picture}
+                  src={`https://www.bungie.net${bnetMembership.iconPath}`}
+                  height={120}
+                  width={120}
+                />
+              )}
               {info && (
-                <>
+                <div style={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
                   <h2>{info.profile.data.userInfo.bungieGlobalDisplayName} <ion-icon name="checkmark-circle-outline" /></h2>
                   <h6>{profileClan && profileClan.name}</h6>
-                </>
+                </div>
               )}
-            </div>
-            <div className={styles.interaction}>
-              <ion-icon name="flag" />
-              <ion-icon name="mail" />
-              <ion-icon name="logo-discord" />
-              <ion-icon name="logo-twitter" />
-              <ion-icon name="logo-instagram" />
+              <div className={styles.interaction}>
+                <ion-icon name="flag" />
+                <ion-icon name="mail" />
+                <ion-icon name="logo-discord" />
+                <ion-icon name="logo-twitter" />
+                <ion-icon name="logo-instagram" />
+              </div>
             </div>
 
             <div className={styles.characters__container}>

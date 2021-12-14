@@ -24,12 +24,12 @@
   @include size(100vh, auto);
   // flex-direction: column;
 
-  // overflow: hidden;
+  overflow: hidden;
 }
 
 .right {
   @include flex(flex-start, flex-start);
-  @include size(100vh);
+  @include size(96vh);
   // background-image: linear-gradient(to bottom, rgba(245, 246, 252, 0), rgba(0, 0, 0, 0.2)), url('https://images6.alphacoders.com/116/1168143.jpg');
 
   background-color: rgba(236, 236, 236, 0.144);
@@ -39,16 +39,24 @@
   padding: 10px;
   gap: 6px;
   flex-direction: column;
+  overflow-y: scroll;
 }
 .profileInfo {
   @include flex;
-  @include size;
+  @include size(60%);
   color: white;
   flex-flow: row wrap;
+  margin-bottom: auto;
+  // background: #000;
   gap: 30px;
 }
 
 .info {
+  @include flex(center, space-between);
+  @include size(18rem);
+  flex-flow: column wrap;
+  padding-top: 20px;
+  // background: purple;
   text-align: left;
   // width: 100%;
   
@@ -62,7 +70,7 @@
     ion-icon {
       position: absolute;
       font-size: 12px;
-      color: c.$ac-greenish;
+      color: c.$ac-gold;
     }
   }
   h6 {
