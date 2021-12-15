@@ -1,0 +1,14 @@
+@use '../../../base/mixins' as *;
+@use '../../../base/colors' as c;
+
+.container {
+  @include flex;
+  @include size(38rem, 24rem);
+  background: rgba(255, 255, 255, 0.1);
+
+  border-top: 3px solid white;
+  overflow: auto;
+  gap: 10px;
+  padding: 10px;
+  flex-flow: row wrap;
+}

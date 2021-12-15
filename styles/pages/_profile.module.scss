@@ -43,7 +43,7 @@
 }
 .profileInfo {
   @include flex;
-  @include size(60%);
+  @include size(40rem);
   color: white;
   flex-flow: row wrap;
   margin-bottom: auto;
@@ -56,15 +56,13 @@
   @include size(18rem);
   flex-flow: column wrap;
   padding-top: 20px;
-  // background: purple;
-  text-align: left;
-  // width: 100%;
+ text-align: left;
   
   h2 {
     font: {
       family: Inter, Outfit, sans-serif;
-      size: 26px;
-      weight: 400;
+      size: 24px;
+      weight: 600;
     }
     
     ion-icon {
@@ -87,12 +85,7 @@
 .interaction {
   @include flex;
   @include size;
-  // flex-direction: column;
-  // background: rgba(255, 255, 255, 0.123);
-  // border-top-left-radius: 20px;
-  // border-top-right-radius: 20px;
   gap: 6px;
-  // padding-inline: 20px;
 
   h4 {
     @include flex;
@@ -116,56 +109,21 @@
   @include flex;
   @include size;
   flex-direction: column;
-  gap: 6px;
+  gap: 4px;
 
   h3 {
     color: white;
-    // background: #000;
-    margin-left: auto;
-    width: 80%;
     font-size: 14px;
     font-weight: 600;
-
+    margin-left: auto;
+    width: 68%;
 
     &:last-child {
       color: c.$light-level;
-      font-weight: 400;
-    font-size: 12px;
+      font-weight: 600;
+      font-size: 12px;
 
     }
-  }
-}
-
-.character {
-  @include flex;
-  @include size(35px);
-  background-size: cover;
-  border-radius: 4px;
-  cursor: pointer;
-  font-family: Inter;
-  font-weight: 200;
-  opacity: 0.9;
-  
-  &:hover {
-    opacity: 1;
-  }
-
-  div {
-    @include flex;
-    @include size;
-    flex-flow: row wrap;
-    // flex-direction: column;
-    // margin-left: auto;
-    // padding: 6px;
-  }
-
-  img {
-    border-top-left-radius: 10px;
-    border-bottom-left-radius: 10px;
-  }
-  h4 {
-    // margin-left: 50px;
-    color: rgb(255, 255, 255);
   }
 }
 
@@ -174,44 +132,4 @@
   @include size;
   gap: 6px;
   // padding: 6px;
-}
-
-.weaponsKillsList {
-  @include flex;
-  @include size(40px, 400px);
-  @include transition;
-  background: rgba(255, 255, 255, 0.1);
-  // backdrop-filter: blur(10px);
-  border-top: 3px solid white;  
-  color: rgb(255, 255, 255);
-  flex-flow: row wrap;
-  gap: 20px;
-  overflow: hidden;
-  padding: 10px;
-  position: relative;
-
-  ion-icon {
-    top: 10px;
-    color: rgb(255, 255, 255);
-    cursor: pointer;
-    position: absolute;
-    right: 4px;
-    opacity: 0.4;
-
-
-    &:hover {
-      // background: rgba(255, 255, 255, 0.82);
-      opacity: 1;
-    }
-  }
-
-  h5 {
-    @include flex;
-    width: 100px;
-    // background: #000;
-    color: rgb(255, 255, 255);
-    font-weight: 300;
-    font-size: 11px;
-    font-family: Inter, Outfit, sans-serif;
-  }
 }

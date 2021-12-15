@@ -16,23 +16,10 @@ const Header = ({
   showLanguageOptions,
   setShowLanguageOptions,
   outsideClick,
-  // handleOutsideClick,
-  // showSuggestions,
-  // setShowSuggestions,
 }) => {
   const dispatch = useAppDispatch();
   const loginInfo = useAppSelector((state) => state.user.info);
   const language = useAppSelector((state) => state.user.preferences.language);
-
-  // const { language, setLanguage } = useContext(UserPreferences);
-  // const [language, setLanguage] = useState('en');
-  // const location = useLocation();
-
-  // useEffect(() => {
-  //   getManifest().then(async ({ Response }) => {
-  //     setBungieManifest({ Response });
-  //   });
-  // }, []);
 
   return (
     <header className="header">

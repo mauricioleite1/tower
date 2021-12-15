@@ -26,13 +26,16 @@ const SearchBar = ({ showSuggestions, setShowSuggestions }) => {
   useEffect(() => {
     if (searchTerm) {
       const delayedSearch = setTimeout(() => {
-        searchByGlobalNamePrefix(searchTerm).then(({ Response }) => {
-          // console.log(Response);
-          const validProfiles = Response.searchResults.filter((result) => result.destinyMemberships.length > 0);
-          setResult(validProfiles);
-          setShowDetailedSearchBar(true);
-        });
-      }, 300);
+        setShowDetailedSearchBar(false)
+        searchByGlobalNamePrefix(searchTerm)
+          .then(({ Response: { searchResults, hasMore, page } }) => {
+            console.log(searchResults)
+
+            const validProfiles = searchResults.filter((result) => result.destinyMemberships.length > 0);
+            setResult({ validProfiles, page, hasMore });
+            setShowDetailedSearchBar(true);
+          });
+      }, 400);
 
       return () => clearTimeout(delayedSearch);
     }
@@ -41,7 +44,7 @@ const SearchBar = ({ showSuggestions, setShowSuggestions }) => {
   return (
     <>
       <div className={styles.container}>
-        
+
         {/* <Link to="/crucible"> */}
         <div className="hero-searchbar__inputnav">
           <input
@@ -50,8 +53,8 @@ const SearchBar = ({ showSuggestions, setShowSuggestions }) => {
             placeholder={commonText.search[language]}
             id="searchInput"
             onChange={({ target: { value } }) => setSearchTerm(value)}
-            onC 
-            
+            onC
+
             lick={() => setShowDetailedSearchBar(!showDetailedSearchBar)}
             // onKeyUp={searchOnKey}
             autoComplete="off"
@@ -67,14 +70,14 @@ const SearchBar = ({ showSuggestions, setShowSuggestions }) => {
         </div>
 
         {/* <ion-icon className={styles.searchButton} name="search-outline" /> */}
-        { showDetailedSearchBar && (
+        {showDetailedSearchBar && (
           <DetailedSearchBar
             searchTerm={searchTerm}
             result={result}
           />
-        ) }
+        )}
       </div>
-      
+
       {/* { showSuggestions && searchSuggestions && <SuggestionsList bungieManifest={ bungieManifest } /> } */}
     </>
   );

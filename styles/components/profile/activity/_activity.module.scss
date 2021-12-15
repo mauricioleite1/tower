@@ -1,0 +1,35 @@
+@use '../../../base/mixins' as *;
+@use '../../../base/colors' as c;
+
+.container {
+  @include flex(flex-start, space-between);
+  @include size(14rem);
+  background-size: cover;
+  // border-radius: 8px;
+  flex-flow: column wrap;
+  padding: 10px;
+  color: white;
+  font-family: Inter, Outfit, sans-serif;
+
+  h3 {
+    font: {
+      // size: 9px;
+      family: Outfit;
+      weight: 200;
+    }
+  }
+
+  h5 {
+    font: {
+      size: 9px;
+      weight: 200;
+    }
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  h7 {
+    font-size: 10px;
+    text-transform: uppercase;
+  }
+}

@@ -9,7 +9,8 @@ const initialState = {
   },
   preferences: {
     language: 'en',
-  }
+  },
+  activities: [],
 }
 
 const userSlice = createSlice({
@@ -21,9 +22,12 @@ const userSlice = createSlice({
     },
     selectedLanguage(state, { payload }) {
       state.preferences.language = payload;
+    },
+    activities(state, { payload }) {
+      state.activities = payload;
     }
   }
 });
 
-export const { login, selectedLanguage } = userSlice.actions;
+export const { login, selectedLanguage, activities } = userSlice.actions;
 export default userSlice.reducer;
