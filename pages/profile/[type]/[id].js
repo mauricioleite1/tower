@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
+import Link from 'next/link';
 import styles from '../../../styles/pages/_profile.module.scss';
 import { useRouter } from 'next/router';
 import { getProfile, getLinkedProfile, getGroupsForMember, getHistoricalStatForAccount } from '../../../api';
@@ -42,6 +43,7 @@ const Profile = () => {
   return (
     <main className={styles.container}>
       <div className={styles.content}>
+
         <div className={styles.sidebar}>
           <div className={styles.profileInfo}>
             <div className={styles.info}>
@@ -87,19 +89,13 @@ const Profile = () => {
           </div>
         </div>
         <section className={styles.right}>
-          {/* <div className={styles.main_profile}>
-            <div className={styles.main_header}>Header</div>
-
-            <div>
-              <h5>About</h5>
-              <h2>Pvp main</h2>
-            </div>
-
-            <div className="medals">
-              <h4><ion-icon name="skull" />Destroyer x3</h4>            
-
-            </div>
-          </div> */}
+          <nav className={styles.selector}>
+            <Link href="/overview" passHref={true}><button className={styles.btn}>Overview</button></Link>
+            <Link href="/crucible" passHref={true}><button className={styles.btn}>Crucible</button></Link>
+            <Link href="/overview" passHref={true}><button className={styles.btn}>Trials</button></Link>
+            <Link href="/overview" passHref={true}><button className={styles.btn}>Vanguard</button></Link>
+            <Link href="/overview" passHref={true}><button className={styles.btn}>Gambit</button></Link>
+          </nav>
 
           <div className={styles.trials_container}>
             {profile && profile.info && historicalInfo && (

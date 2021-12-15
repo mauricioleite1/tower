@@ -60,12 +60,12 @@ const DetailedSearchBar = ({ searchTerm, result: { validProfiles, hasMore, page 
               </div>
             )}
           </div>
-
+{/* 
           <div className={styles.categories}>
             <h6>Categories</h6>
             <div>Weapons</div>
             <div>Activities</div>
-          </div>
+          </div> */}
         </section>
       )}
     </>

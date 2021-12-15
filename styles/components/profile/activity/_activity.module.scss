@@ -4,18 +4,26 @@
 .container {
   @include flex(flex-start, space-between);
   @include size(14rem);
+  @include transition;
   background-size: cover;
-  // border-radius: 8px;
+  border-radius: 8px;
   flex-flow: column wrap;
   padding: 10px;
   color: white;
+  cursor: pointer;
   font-family: Inter, Outfit, sans-serif;
 
+  &:hover {
+    opacity: 0.9;
+  }
+
   h3 {
+    text-shadow: 0 3px 6px rgba(0, 0, 0, 0.5);
     font: {
-      // size: 9px;
-      family: Outfit;
-      weight: 200;
+      size: 18px;
+      letter-spacing: 0.1em;
+      family: Inter;
+      weight: 500;
     }
   }
 
@@ -32,4 +40,11 @@
     font-size: 10px;
     text-transform: uppercase;
   }
+}
+
+.tags {
+  @include flex(center, flex-start);
+  @include size(auto, 70%);
+  gap: 6px;
+  flex-flow: row wrap;
 }

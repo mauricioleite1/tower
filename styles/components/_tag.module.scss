@@ -4,27 +4,28 @@
 
 .container {
   @include m.flex(center, space-between);
-  @include m.size(24px, 60px);
+  @include m.size(24px, 66px);
   background-color: rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(6px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  // color: rgba(106, 25, 255, 0.712);
   border-radius: 50vw;
-  font-size: 0.76em;
-  font-family: Inter, Outfit, sans-serif;
+  font: {
+    family: Inter, Outfit, sans-serif;
+    size: 0.76em;
+    // weight: 400;
+  }
   padding-inline: 4px;
   text-align: center;
-}
-
-.tag span:last-child {
-  font-size: 0.94em;
   text-transform: uppercase;
+  
+  h5 {
+    font-size: 0.65em;
+    text-transform: uppercase;
+
+    ion-icon {
+      font-size: 1.4em;
+    }
+  }
 }
 
-.tag h5 {
-  font-size: 0.65em;
-  text-transform: uppercase;
-}
-
-.tag h5 ion-icon {
-  font-size: 1.7em;
-}
