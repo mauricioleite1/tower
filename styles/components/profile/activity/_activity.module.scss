@@ -4,7 +4,7 @@
 .container {
   @include flex(flex-start, space-between);
   @include size(14rem);
-  @include transition;
+  // @include transition;
   background-size: cover;
   border-radius: 8px;
   flex-flow: column wrap;
@@ -12,18 +12,29 @@
   color: white;
   cursor: pointer;
   font-family: Inter, Outfit, sans-serif;
+  transition: opacity 0.2s ease-in-out;
 
   &:hover {
     opacity: 0.9;
   }
 
   h3 {
-    text-shadow: 0 3px 6px rgba(0, 0, 0, 0.5);
+    text-shadow: 0 3px 6px rgb(0, 0, 0);
     font: {
       size: 18px;
       letter-spacing: 0.1em;
       family: Inter;
       weight: 500;
+    }
+  }
+
+  h4 {
+    text-shadow: 0 3px 6px rgb(0, 0, 0);
+    font: {
+      size: 16px;
+      letter-spacing: 0.1em;
+      family: Inter;
+      weight: 300;
     }
   }
 
@@ -42,9 +53,14 @@
   }
 }
 
+.header {
+  @include size(auto, 50%);
+}
+
 .tags {
   @include flex(center, flex-start);
-  @include size(auto, 70%);
+  @include size(auto);
+  // background: #000;
   gap: 6px;
   flex-flow: row wrap;
 }

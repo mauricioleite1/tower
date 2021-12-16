@@ -2,19 +2,24 @@ import React, { useState, useEffect, useContext } from 'react';
 import Link from 'next/link';
 import styles from '../../../styles/pages/_profile.module.scss';
 import { useRouter } from 'next/router';
-import { getProfile, getLinkedProfile, getGroupsForMember, getHistoricalStatForAccount } from '../../../api';
+import { getProfile, getLinkedProfile, getGroupsForMember, getHistoricalStatForAccount, getActivityHistory } from '../../../api';
 import Image from 'next/image';
 import InfoCard from '../../../components/infoCard';
 import WeaponSvg from '../../../public/svg/WeaponSvg';
 import WeaponsKillsList from '../../../components/profile/weaponsKillsList';
-import { useAppSelector } from '../../../redux/app/hooks.ts';
+import { useAppSelector, useAppDispatch } from '../../../redux/app/hooks.ts';
+import { activities } from '../../../redux/userSlice';
+
 
 import Character from '../../../components/profile/character/Character';
 import ActivityList from '../../../components/profile/activity/ActivityList';
 
 const Profile = () => {
-  const activities = useAppSelector(state => state.user.activities);
+  const dispatch = useAppDispatch();
+
+  // const activities = useAppSelector(state => state.user.activities);
   const router = useRouter();
+  const [activityReadyToShow, setActivityReadyToShow] = useState(false);
   const [profile, setProfile] = useState({});
   const [historicalInfo, setHistoricalInfo] = useState(null);
   const [profileClan, setProfileClan] = useState(null);
@@ -39,6 +44,16 @@ const Profile = () => {
   useEffect(() => {
     fetchProfileInfo();
   }, []);
+
+  useEffect(() => {
+    if (info) {
+      getActivityHistory(Object.values(info.characters.data)[0].characterId, id, type)
+      .then(({ Response }) => {
+        dispatch(activities([...Response.activities]))
+        setActivityReadyToShow(true)
+      });
+    }
+  }, [info, id, type, dispatch]);
 
   return (
     <main className={styles.container}>
@@ -153,7 +168,7 @@ const Profile = () => {
 
           {profile && profile.info && historicalInfo && <WeaponsKillsList historicalInfo={historicalInfo} />}
           
-          <ActivityList />
+         { activityReadyToShow && <ActivityList />}
         </section>
       </div>
     </main>
