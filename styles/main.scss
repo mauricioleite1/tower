@@ -37,17 +37,19 @@ a {
 }
 
 ::-webkit-scrollbar {
-  background-color: blue;
-  width: 8px;
+  width: 6px;
 }
 
 ;;::-webkit-scrollbar-track {
-  background-color: rgb(255, 255, 255);
+  background-color: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-  border: 1px solid rgb(255, 255, 255);
-  background: rgb(211, 211, 211);
+  border: 2px solid transparent;
+  background: rgb(189, 189, 189);
   width: 2px;
   border-radius: 8px;
+  &:hover {
+    background: rgba(141, 141, 141, 0.45);
+  }
 }

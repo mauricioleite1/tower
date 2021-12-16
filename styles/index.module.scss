@@ -6,13 +6,13 @@
 
 .hero {
   @include m.flex;
-  @include m.size(100vh, 100%);
+  @include m.size(100vh);
   // background-image: linear-gradient(to bottom, rgba(245, 246, 252, 0), rgba(0, 0, 0, 0.2)), url('http://downloads.bungie.net/images/Wallpapers/S15/JB_Marathon_Hunter_TWAB_4K.jpg');
   background-image: linear-gradient(to bottom, rgba(245, 246, 252, 0), rgba(0, 0, 0, 0.2)), url('https://images6.alphacoders.com/116/1168143.jpg');
   
   // background-image: linear-gradient(to bottom, rgba(245, 246, 252, 0), rgba(0, 0, 0, 0.2)), url('https://images8.alphacoders.com/116/1168150.jpg');
-  background-image: linear-gradient(to bottom, rgba(245, 246, 252, 0), rgba(0, 0, 0, 0.2)), url('https://images2.alphacoders.com/116/1168144.jpg');
-
+  // background-image: linear-gradient(to bottom, rgba(245, 246, 252, 0), rgba(0, 0, 0, 0.2)), url('https://images2.alphacoders.com/116/1168144.jpg');
+  margin: auto;
   background-size: cover;
   isolation: isolate;
   position: relative;

@@ -13,7 +13,6 @@ import { UserPreferences } from '../../context/user';
 import { PlayerContext } from '../../context/player';
 import styles from '../../styles/components/_searchbar.module.scss';
 import DetailedSearchBar from './DetailedSearchBar';
-import LoadingDetailedSearchBar from './loadingState/LoadingDetailedSearchBar';
 
 const SearchBar = ({ showSuggestions, setShowSuggestions }) => {
   const language = useAppSelector((state) => state.user.preferences.language);
@@ -27,13 +26,16 @@ const SearchBar = ({ showSuggestions, setShowSuggestions }) => {
   useEffect(() => {
     if (searchTerm) {
       const delayedSearch = setTimeout(() => {
-        searchByGlobalNamePrefix(searchTerm).then(({ Response }) => {
-          // console.log(Response);
-          const validProfiles = Response.searchResults.filter((result) => result.destinyMemberships.length > 0);
-          setResult(validProfiles);
-          setShowDetailedSearchBar(true);
-        });
-      }, 300);
+        setShowDetailedSearchBar(false)
+        searchByGlobalNamePrefix(searchTerm)
+          .then(({ Response: { searchResults, hasMore, page } }) => {
+            console.log(searchResults)
+
+            const validProfiles = searchResults.filter((result) => result.destinyMemberships.length > 0);
+            setResult({ validProfiles, page, hasMore });
+            setShowDetailedSearchBar(true);
+          });
+      }, 400);
 
       return () => clearTimeout(delayedSearch);
     }
@@ -42,7 +44,7 @@ const SearchBar = ({ showSuggestions, setShowSuggestions }) => {
   return (
     <>
       <div className={styles.container}>
-        
+
         {/* <Link to="/crucible"> */}
         <div className="hero-searchbar__inputnav">
           <input
@@ -51,29 +53,31 @@ const SearchBar = ({ showSuggestions, setShowSuggestions }) => {
             placeholder={commonText.search[language]}
             id="searchInput"
             onChange={({ target: { value } }) => setSearchTerm(value)}
-            onClick={() => setShowDetailedSearchBar(!showDetailedSearchBar)}
+            onC
+
+            lick={() => setShowDetailedSearchBar(!showDetailedSearchBar)}
             // onKeyUp={searchOnKey}
             autoComplete="off"
           />
 
           <nav>
-            {searchBarNavOptions[language].map(({ href, title }, key) => (
+            {searchBarNavOptions[language].map(({ href, title, id }, key) => (
               <Link key={key} href={href} passHref={true}>
-                <h4>{title}</h4>
+                <h4 id={id}>{title}</h4>
               </Link>
             ))}
           </nav>
         </div>
 
-        <ion-icon className={styles.searchButton} name="search-outline" />
-        { showDetailedSearchBar && (
+        {/* <ion-icon className={styles.searchButton} name="search-outline" /> */}
+        {showDetailedSearchBar && (
           <DetailedSearchBar
             searchTerm={searchTerm}
             result={result}
           />
-        ) }
+        )}
       </div>
-      
+
       {/* { showSuggestions && searchSuggestions && <SuggestionsList bungieManifest={ bungieManifest } /> } */}
     </>
   );

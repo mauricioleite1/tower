@@ -28,6 +28,7 @@ const Landing = ({ showSuggestions, setShowSuggestions }) => {
       const responseActivityModeDefinition = await fetch(`https://www.bungie.net${manifest.DestinyActivityModeDefinition}`);
       const responseClassDefinition = await fetch(`https://www.bungie.net${manifest.DestinyClassDefinition}`);
       const responseInventoryItemDefinition = await fetch(`https://www.bungie.net${manifest.DestinyInventoryItemDefinition}`);
+      const responseMetricDefinition = await fetch(`https://www.bungie.net${manifest.DestinyMetricDefinition}`);
       const responsePresentationNodeDefinition = await fetch(`https://www.bungie.net${manifest.DestinyPresentationNodeDefinition}`);
       const responseProgressionDefinition = await fetch(`https://www.bungie.net${manifest.DestinyProgressionDefinition}`);
       const responseRecordDefinition = await fetch(`https://www.bungie.net${manifest.DestinyRecordDefinition}`);
@@ -39,6 +40,7 @@ const Landing = ({ showSuggestions, setShowSuggestions }) => {
         activityModeDefinition: await responseActivityModeDefinition.json(),
         classDefinition: await responseClassDefinition.json(),
         inventoryItemsDefinition: await responseInventoryItemDefinition.json(),
+        metricDefinition: await responseMetricDefinition.json(),
         presentationNodeDefinition: await responsePresentationNodeDefinition.json(),
         progressionDefinition: await responseProgressionDefinition.json(),
         recordDefinition: Object.values(await responseRecordDefinition.json()),

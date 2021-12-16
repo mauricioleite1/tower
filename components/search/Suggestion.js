@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useRef, useCallback } from 'react';
 import { BungieDataContext } from '../../context/bungieData';
 import { getLinkedProfile, getProfile } from '../../api';
 import { languageSuggestion } from '../language';
@@ -8,16 +8,31 @@ import styles from '../../styles/components/_suggestion.module.scss';
 import Tag from '../base/Tag';
 import TimeAgo from 'timeago-react';
 
-const Suggestion = ({ result }) => {
+const Suggestion = ({ result, last, hasMore, func, setNextPage }) => {
   const { bungieData, setBungieData } = useContext(BungieDataContext);
   const [showAdditionalInfo, setShowAdditionalInfo] = useState(false);
   const [showErrorMessage, setShowErrorMessage] = useState(false);
   const [searchedUser, setSearchedUser] = useState({});
+  const [loading, setLoading] = useState(false)
   const router = useRouter();
 
   const language = useAppSelector((state) => state.user.preferences.language);
   const stringCode = String(result.bungieGlobalDisplayNameCode);
   const { destinyMemberships } = result;
+
+  const observer = useRef()
+  const lastElement = useCallback(node => {
+    if (last) {
+      if (loading) return
+      if (observer.current) observer.current.disconnect()
+      observer.current = new IntersectionObserver(entries => {
+        if (entries[0].isIntersecting) {
+          if (hasMore) { func(); }
+        }
+      })
+      if (node) observer.current.observe(node)
+    }
+  }, [last, loading])
 
   useEffect(() => {
     if (result && result.destinyMemberships[0]) {
@@ -30,17 +45,19 @@ const Suggestion = ({ result }) => {
             (a, b) => new Date(b.dateLastPlayed) - new Date(a.dateLastPlayed)
           );
           const lastUsedProfile = profilesList[0];
-          const { membershipId, membershipType, dateLastPlayed } =
-            lastUsedProfile;
-
-          getProfile(membershipId, membershipType).then(({ Response }) =>
-            setSearchedUser({
-              general: Response,
-              lastPlayedCharacter: Object.values(Response.characters.data).find(
-                (a) => a.dateLastPlayed === dateLastPlayed
-              ),
-            })
-          );
+          if (lastUsedProfile) {
+            const { membershipId, membershipType, dateLastPlayed } =
+              lastUsedProfile;
+  
+            getProfile(membershipId, membershipType).then(({ Response }) =>
+              setSearchedUser({
+                general: Response,
+                lastPlayedCharacter: Object.values(Response.characters.data).find(
+                  (a) => a.dateLastPlayed === dateLastPlayed
+                ),
+              })
+            );
+          }
         }
       );
     }
@@ -64,6 +81,7 @@ const Suggestion = ({ result }) => {
           onMouseOut={handleMouseOver}
           onMouseOver={handleMouseOver}
           className={styles.container}
+          ref={ lastElement }
           style={{
             backgroundImage:
               searchedUser &&

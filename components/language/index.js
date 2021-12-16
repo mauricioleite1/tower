@@ -13,22 +13,22 @@ export const commonText = {
 
 export const searchBarNavOptions = {
   de: [
-    { href: '/vanguard', title: 'Vorhut' },
-    { href: '/crucible', title: 'Schmeltztiegel' },
-    { href: '/trials', title: 'Prüfungen Von Osiris' },
-    { href: '/gambit', title: 'Gambit' },
+    { href: '/vanguard', title: 'Vorhut', id: 'vanguard' },
+    { href: '/crucible', title: 'Schmeltztiegel', id: 'crucible' },
+    { href: '/trials', title: 'Prüfungen Von Osiris', id: 'trials' },
+    { href: '/gambit', title: 'Gambit', id: 'gambit' },
   ],
   en: [
-    { href: '/vanguard', title: 'Vanguard' },
-    { href: '/crucible', title: 'Crucible' },
-    { href: '/trials', title: 'Trials of Osiris' },
-    { href: '/gambit', title: 'Gambit' },
+    { href: '/vanguard', title: 'Vanguard', id: 'vanguard' },
+    { href: '/crucible', title: 'Crucible', id: 'crucible' },
+    { href: '/trials', title: 'Trials of Osiris', id: 'trials' },
+    { href: '/gambit', title: 'Gambit', id: 'gambit' },
   ],
   'pt-br': [
-    { href: '/vanguard', title: 'Vanguarda' },
-    { href: '/crucible', title: 'Crisol' },
-    { href: '/trials', title: 'Desafios de Osíris' },
-    { href: '/gambit', title: 'Artimanha' },
+    { href: '/vanguard', title: 'Vanguarda', id: 'vanguard' },
+    { href: '/crucible', title: 'Crisol', id: 'crucible' },
+    { href: '/trials', title: 'Desafios de Osíris', id: 'trials' },
+    { href: '/gambit', title: 'Artimanha', id: 'gambit' },
   ],
 };
 

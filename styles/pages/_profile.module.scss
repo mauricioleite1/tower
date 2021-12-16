@@ -2,74 +2,95 @@
 @use '../base/colors' as c;
 
 .container {
-  @include size(100vh, 100vw);
+  @include size(100vh, auto);
+  background: rgb(255, 255, 255);
+    // background-image: linear-gradient(to bottom, rgba(245, 246, 252, 0), rgba(0, 0, 0, 0.2)), url('http://downloads.bungie.net/images/Wallpapers/S15/JB_Marathon_Hunter_TWAB_4K.jpg');
+  background-image: linear-gradient(to bottom, rgba(245, 246, 252, 0), rgba(0, 0, 0, 0.2)), url('https://images6.alphacoders.com/116/1168143.jpg');
+  background-size: cover;
+  // padding: 10px;
+}
+
+.sidebar {
+  @include flex;
+  @include size(100%, 12%);
+  padding: 10px;
+  background: linear-gradient(45deg, rgba(0, 0, 0, 0.13) 40%, rgba(255, 255, 255, 0.555));
+  backdrop-filter: blur(40px);
+  left: 0;
+  position: fixed;
+  z-index: 1;
 }
 
 .content {
-  @include flex(flex-start, space-between);
-  @include size(100vh);
-  // background-color: red;
-  margin: auto;
-  overflow-x: hidden;
-}
+  @include flex(flex-start);
+  @include size(100vh, auto);
 
-.left {
-  @include flex(center, space-around);
-  @include size(100vh, 14rem);
-  background-color: rgb(230, 230, 230);
-  flex-direction: column;
-  position: fixed;
-  gap: 10px;
-  padding: 10px;
-  margin-left: 50px;
+  // flex-direction: column;
+
+  // overflow: scroll;
 }
 
 .right {
-  @include flex;
-  @include size(auto, 80%);
-  min-height: 180vh;
-  // backdrop-filter: blur(25px);
-  flex-direction: column;
-}
+  @include flex(flex-start, flex-start);
+  @include size(auto, 88%);
+  // background-image: linear-gradient(to bottom, rgba(245, 246, 252, 0), rgba(0, 0, 0, 0.2)), url('https://images6.alphacoders.com/116/1168143.jpg');
 
+  background-color: rgba(236, 236, 236, 0.144);
+  background-repeat: repeat-y;
+  backdrop-filter: blur(50px);
+  min-height: 150vh;
+  margin-top: 40px;
+  margin-left: auto;
+  padding: 10px;
+  gap: 6px;
+  flex-direction: column;
+  overflow-y: auto;
+}
 .profileInfo {
   @include flex;
-  @include size;
-  flex-direction: column;
-  gap: 20px;
+  @include size(40rem);
+  color: white;
+  flex-flow: row wrap;
+  margin-bottom: auto;
+  // background: #000;
+  gap: 30px;
 }
 
 .info {
-  text-align: left;
-  width: 80%;
+  @include flex(center, space-between);
+  @include size(18rem);
+  flex-flow: column wrap;
+  padding-top: 20px;
+ text-align: left;
+  
   h2 {
-    font-family: Inter, Outfit, sans-serif;
-    font-weight: 800;
-    font-size: 20px;
+    font: {
+      family: Inter, Outfit, sans-serif;
+      size: 24px;
+      weight: 600;
+    }
+    
     ion-icon {
       position: absolute;
-      font-size: 14px;
-      color: rgb(0, 71, 163);
+      font-size: 12px;
+      color: c.$ac-gold;
     }
   }
   h6 {
-    font-weight: 200 !important;
-    font-size: 12px;
+    font-weight: 100 !important;
+    font-size: 10px;
     letter-spacing: 0.03rem;
   }
 }
 
 .picture {
-  @include size(100px, 100px);
   border-radius: 50vw;
 }
 
 .interaction {
   @include flex;
   @include size;
-  // flex-direction: column;
   gap: 6px;
-  // padding-inline: 20px;
 
   h4 {
     @include flex;
@@ -80,15 +101,12 @@
 
   ion-icon {
     @include transition;
-    background-color: rgb(255, 255, 255);
-    color: rgb(82, 82, 82);
+    color: white;
     cursor: pointer;
     padding: 8px;
     border-radius: 50%;
 
-    &:hover {
-      opacity: 0.6;
-    }
+    &:hover { opacity: 0.6; }
   }
 }
 
@@ -100,35 +118,50 @@
 
   h3 {
     color: white;
-    font-family: Inter, Outfit, sans-serif;
-    font-weight: normal;
+    font-size: 14px;
+    font-weight: 600;
+    margin-left: auto;
+    width: 68%;
+
     &:last-child {
       color: c.$light-level;
-      font-weight: 800;
+      font-weight: 600;
+      font-size: 12px;
+
     }
   }
 }
 
-.character {
+.trials_container, .crucible_container {
+  @include flex(center, flex-start);
+  @include size;
+  gap: 6px;
+  // padding: 6px;
+}
+
+.btn {
   @include flex;
-  @include size(65px);
-  background-size: cover;
+  @include size(24px, 66px);
+  background-color: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  // color: rgba(106, 25, 255, 0.712);
+  border-radius: 50vw;
   cursor: pointer;
-  border-radius: 2px;
+  color: white;
+  font: {
+    family: Inter, Outfit, sans-serif;
+    size: 0.62em;
+    weight: 200;
+  }
+  text-transform: uppercase;
 
-  div {
-    @include flex(center, space-between);
-    @include size(auto, 67%);
-    margin-left: auto;
-    margin-right: 6px;
+  &:hover {
+    opacity: 0.9;
   }
+}
 
-  img {
-    border-top-left-radius: 10px;
-    border-bottom-left-radius: 10px;
-  }
-  h4 {
-    // margin-left: 50px;
-    color: white;
-  }
+.selector {
+  @include flex;
+  gap: 6px;
 }

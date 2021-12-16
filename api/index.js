@@ -41,10 +41,15 @@ export const getGroupsForMember = async (membershipId, membershipType = -1, filt
   return bungieApiFetch(API_ENDPOINT);
 }
 
-// export const getActivityHistory = async (characterId, membershipId, membershipType = 1) => {
-//   const API_ENDPOINT = `${API_BASE_URL}/Destiny2/${membershipType}/Account/${membershipId}/Character/${characterId}/Stats/Activities/?count=100`
-//   return apiFetch(API_ENDPOINT);
-// }
+export const getHistoricalStatForAccount = async (membershipId, membershipType = -1) => {
+  const API_ENDPOINT = `${API_BASE_URL}/Destiny2/${membershipType}/Account/${membershipId}/Stats/?groups=1`;
+  return bungieApiFetch(API_ENDPOINT);
+}
+
+export const getActivityHistory = async (characterId, membershipId, membershipType = 1) => {
+  const API_ENDPOINT = `${API_BASE_URL}/Destiny2/${membershipType}/Account/${membershipId}/Character/${characterId}/Stats/Activities/?count=40&mode=0&page=0`
+  return bungieApiFetch(API_ENDPOINT);
+}
 
 // export const getTrialsActivityHistory = async (characterId, membershipId, membershipType = 1) => {
 //   const API_ENDPOINT = `${API_BASE_URL}/Destiny2/${membershipType}/Account/${membershipId}/Character/${characterId}/Stats/Activities/?mode=trialsofosiris&count=24&page=0`

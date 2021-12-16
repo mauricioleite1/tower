@@ -5,21 +5,21 @@ import styles from '../../styles/components/_tag.module.scss';
 const Tag = ({ shownInfo, title = null, decimals = 0, width = '60px' }) => {
   // const { victory, defeat, neutral } = bgColor;
 
-  // const bgColorTag = () => {
-  //   switch (shownInfo) {
-  //     case 'Victory': return victory;
-  //     case 'Defeat': return defeat;
-
-  //     default: return neutral;
-  //   }    
-  // }
+  const bgColorTag = () => {
+    switch (shownInfo) {
+      case 'Victory': return 'rgba(10, 100, 10, 0.2)';
+      case 'Completed': return 'rgba(200, 0, 200, 0.2)';
+      case 'Defeat': return 'rgba(250, 10, 50, 0.2)';
+      default: return;
+    }    
+  }
 
   return (
-    <div 
+    <div
       className={styles.container}
-      // style={{ backgroundColor: title === '#' || title === 'score' ? 'rgba(0 0 0 / 0.3)' : bgColorTag(), width }}
+      style={{ justifyContent: !title && 'center', background: bgColorTag(), fontSize: !title && '10px' }}
     >
-      <h5>{ title }</h5>
+      { title && <h5>{ title }</h5> }
       <span>{ typeof shownInfo === 'number' ? shownInfo.toFixed(decimals) : shownInfo }</span>
     </div>
   );

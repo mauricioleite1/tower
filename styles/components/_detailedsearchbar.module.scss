@@ -16,10 +16,11 @@
   box-shadow: rgba(0, 0, 0, 0.24) 0px 4px 4px;
   flex-direction: column;
   left: 3%;
-  max-height: 520px;
-  padding-bottom: 10px;
+  max-height: 500px;
+  padding-bottom: 6px;
+  font-weight: 200;
   position: absolute;
-  top: 91px;
+  top: 96px;
 
   ion-icon[ id="platform"] { 
     @include transition;
@@ -38,9 +39,15 @@
     font-weight: 300;
     width: 100%;
     padding: 10px;
+    // font-size: 12px;
+    &:first-child {
+      color: rgb(22,22,22);
+    font-size: 12px;
+
+    }
     span {
-      // color: c.$ac-main;
-      font-weight: 600;
+      color: c.$ac-main;
+      font-weight: 800;
     }
   }
 }

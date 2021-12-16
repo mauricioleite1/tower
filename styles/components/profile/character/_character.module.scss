@@ -1,0 +1,32 @@
+@use '../../../base/mixins' as *;
+@use '../../../base/colors' as c;
+
+.container {
+  @include flex;
+  @include size(65px);
+  background-size: cover;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: Inter;
+  font-weight: 200;
+  opacity: 0.9;
+  
+  &:hover {
+    opacity: 1;
+  }
+
+  div {
+    @include flex;
+    @include size;
+    flex-flow: row wrap;
+
+  }
+
+  img {
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+  }
+  h4 {
+    color: rgb(255, 255, 255);
+  }
+}
